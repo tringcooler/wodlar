@@ -3,9 +3,9 @@ define(function(require) {
     function multi_pool() {
         this.pool = {};
     }
-    multi_pool.prototype.set = function(keys, val) {
+    multi_pool.prototype.foreach = function(keys, func) {
         if(!keys.length) return;
-        var _set = function(pool, keys) {
+        var _scan = function(pool, keys) {
             var head_ks = keys[0];
             var tail_k = keys.slice(1);
             if(!(head_ks instanceof Array)) {
@@ -14,17 +14,22 @@ define(function(require) {
             for(var i = 0; i < head_ks.length; i++) {
                 var head_k = head_ks[i];
                 if(tail_k.length < 1) {
-                    pool[head_k] = val;
+                    pool[head_k] = func(pool[head_k]);
                     continue;
                 }
                 if(!(head_k in pool)) {
                     pool[head_k] = {};
                 }
                 var npool = pool[head_k];
-                _set(npool, tail_k);
+                _scan(npool, tail_k);
             }
         };
-        _set(this.pool, keys);
+        _scan(this.pool, keys);
+    };
+    multi_pool.prototype.set = function(keys, val) {
+        this.foreach(keys, function(v) {
+            return val;
+        });
     };
     multi_pool.prototype.has = function(keys, any = true) {
         if(!keys.length) return;
