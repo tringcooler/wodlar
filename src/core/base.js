@@ -23,11 +23,8 @@ var subclass = (function(_super) {
 var __require_list = this.__require_list || {};
 var __require = this.__require || function (s) {
     if(!(s in __require_list)) {
-        /*var elm = $('<script>').attr('type', 'text/javascript').attr('src', 'src/' + s);
-        $('head').append(elm);*/
         var elm = document.createElement('script');
         elm.type ='text/javascript';
-        elm.charset = 'utf-8';
         elm.src = 'src/' + s + '.js';
         elm.async = true;
         document.getElementsByTagName('head')[0].appendChild(elm);
