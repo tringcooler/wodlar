@@ -3,13 +3,19 @@ define(function (require) {$(document).ready(function() {
     console.log(require('action/attack'));
     (function() {
         var mp = new (require('core/util').multi_pool)();
-        mp.set([123, 456], 789);
-        mp.set([123, 457], 790);
-        mp.set([124, 457], 800);
-        console.log(mp.get([124, 457]), mp.get([124, 456]), mp.get([123, 457]), mp.get([124]));
-        mp.remove([124, 457]);
-        console.log(mp.pool);
-        mp.remove([123]);
+        mp.set([[1,2,3], [4,5,6], [7,8,9]], 'abc');
+        console.log(
+            mp.has([1,4,7]),
+            mp.has([1,4,7], false),
+            mp.has([1,4,6]),
+            mp.has([1,4,6], false),
+            mp.has([1,4,[6,7]]),
+            mp.has([1,4,[6,7]], false),
+            mp.has([[1,2,3], [4,5,6], [7,8,9]]),
+            mp.has([[1,2,3], [4,5,6], [7,8,9]], false),
+            mp.has([[1,2,3], [4,5,6,7], [7,8,9]]),
+            mp.has([[1,2,3], [4,5,6,7], [7,8,9]], false),
+        );
         console.log(mp.pool);
     })();
 });});

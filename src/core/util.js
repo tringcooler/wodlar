@@ -5,18 +5,82 @@ define(function(require) {
     }
     multi_pool.prototype.set = function(keys, val) {
         if(!keys.length) return;
-        var pool = this.pool;
-        for(var i = 0; i < keys.length - 1; i++) {
-            if(typeof(pool) != 'object') {
-                throw 'invalid keys length';
+        var _set = function(pool, keys) {
+            var head_ks = keys[0];
+            var tail_k = keys.slice(1);
+            if(!(head_ks instanceof Array)) {
+                head_ks = [head_ks];
             }
-            var key = keys[i];
-            if(!(key in pool)) {
-                pool[key] = {};
+            for(var i = 0; i < head_ks.length; i++) {
+                var head_k = head_ks[i];
+                if(tail_k.length < 1) {
+                    pool[head_k] = val;
+                    continue;
+                }
+                if(!(head_k in pool)) {
+                    pool[head_k] = {};
+                }
+                var npool = pool[head_k];
+                _set(npool, tail_k);
             }
-            pool = pool[key];
-        }
-        pool[keys[keys.length - 1]] = val;
+        };
+        _set(this.pool, keys);
+    };
+    multi_pool.prototype.has = function(keys, any = true) {
+        if(!keys.length) return;
+        var _chk = function(pool, keys) {
+            var head_ks = keys[0];
+            var tail_k = keys.slice(1);
+            if(!(head_ks instanceof Array)) {
+                head_ks = [head_ks];
+            }
+            for(var i = 0; i < head_ks.length; i++) {
+                var head_k = head_ks[i];
+                if(!(head_k in pool)) {
+                    if(!any) {
+                        return false;
+                    } else {
+                        continue;
+                    }
+                }
+                var npool = pool[head_k];
+                if(tail_k.length > 0) {
+                    if(typeof(npool) != 'object') {
+                        if(!any) {
+                            return false;
+                        } else {
+                            continue;
+                        }
+                    }
+                } else {
+                    if(any) {
+                        return true;
+                    } else {
+                        continue;
+                    }
+                }
+                var r = _chk(npool, tail_k, any);
+                if(r) {
+                    if(any) {
+                        return true;
+                    } else {
+                        continue;
+                    }
+                } else {
+                    if(!any) {
+                        return false;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            if(any) {
+                return false;
+            } else {
+                return true;
+            }
+        };
+        return _chk(this.pool, keys);
     };
     multi_pool.prototype.get = function(keys) {
         if(!keys.length) return;
@@ -58,12 +122,12 @@ define(function(require) {
     function lm_multi_pool() {
         multi_pool.call(this);
     }
-    lm_multi_pool.prototype.set() = function(keys, val) {
+    lm_multi_pool.prototype.set = function(keys, val) {
         
     };
-    lm_multi_pool.prototype.get() = function(keys) {
+    lm_multi_pool.prototype.get = function(keys) {
     };
-    lm_multi_pool.prototype.remove() = function(keys) {
+    lm_multi_pool.prototype.remove = function(keys) {
     };
     
     return {
