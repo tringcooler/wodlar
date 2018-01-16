@@ -7,10 +7,10 @@ define(function(require) {
         if(!keys.length) return;
         var pool = this.pool;
         for(var i = 0; i < keys.length - 1; i++) {
-            var key = keys[i];
             if(typeof(pool) != 'object') {
                 throw 'invalid keys length';
             }
+            var key = keys[i];
             if(!(key in pool)) {
                 pool[key] = {};
             }
@@ -22,10 +22,10 @@ define(function(require) {
         if(!keys.length) return;
         var pool = this.pool;
         for(var i = 0; i < keys.length - 1; i++) {
-            var key = keys[i];
             if(typeof(pool) != 'object') {
                 return undefined;
             }
+            var key = keys[i];
             if(!(key in pool)) {
                 return undefined;
             }
@@ -52,6 +52,18 @@ define(function(require) {
             }
         }
         _clear(this.pool, keys);
+    };
+    
+    __extends(lm_multi_pool, multi_pool);
+    function lm_multi_pool() {
+        multi_pool.call(this);
+    }
+    lm_multi_pool.prototype.set() = function(keys, val) {
+        
+    };
+    lm_multi_pool.prototype.get() = function(keys) {
+    };
+    lm_multi_pool.prototype.remove() = function(keys) {
     };
     
     return {
