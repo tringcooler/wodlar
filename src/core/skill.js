@@ -6,5 +6,3 @@ var wodlar_skill = (function(_super) {
     return wodlar_skill;
     
 })();
-
-return wodlar_skill;
