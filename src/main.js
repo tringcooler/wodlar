@@ -1,4 +1,4 @@
-__require('core/skill');
+__require('skill/atack');
 
 $(document).ready(function() {
     console.log('start');

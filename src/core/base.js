@@ -22,13 +22,23 @@ var subclass = (function(_super) {
 
 var __require = (function() {
     var __require_list = this.__require_list || {};
+    var __require_load = function (s) {
+        var elm = document.createElement('script');
+        elm.type ='text/javascript';
+        elm.src = 'src/' + s + '.js';
+        elm.async = true;
+        document.getElementsByTagName('head')[0].appendChild(elm);
+    };
     var __require = this.__require || function (s) {
         if(!(s in __require_list)) {
-            var elm = document.createElement('script');
-            elm.type ='text/javascript';
-            elm.src = 'src/' + s + '.js';
-            elm.async = true;
-            document.getElementsByTagName('head')[0].appendChild(elm);
+            try {
+                __require_load(s);
+            } catch(err) {
+                console.log('catch', err);
+            }
+            console.log('before', s);
+            throw 'aaaa';
+            console.log('after', s);
             __require_list[s] = elm;
         }
     };

@@ -1,4 +1,4 @@
-var wodlar_skill = (function(_super) {
+var wodlar_skill = (function() {
     
     function wodlar_skill() {
     }
