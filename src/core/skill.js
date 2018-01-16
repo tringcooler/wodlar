@@ -8,7 +8,7 @@ define(function(require) {
     
     skill.prototype.SETID('SKILL');
     
-    skill.prototype.REGTAB = new (require('core/skill_table'))();
+    skill.prototype.REGTAB = new (require('core/regtab'))();
     
     return skill;
     
