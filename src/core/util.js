@@ -3,12 +3,16 @@ define(function(require) {
     function multi_pool() {
         this.pool = {};
     }
+    multi_pool.prototype.SYM_WC = '*';
     multi_pool.prototype.foreach = function(keys, func) {
         if(!keys.length) return;
+        var self = this;
         var _scan = function(pool, keys, path) {
             var head_ks = keys[0];
             var tail_k = keys.slice(1);
-            if(!(head_ks instanceof Array)) {
+            if(head_ks == self.SYM_WC) {
+                head_ks = Object.keys(pool);
+            } else if(!(head_ks instanceof Array)) {
                 head_ks = [head_ks];
             }
             for(var i = 0; i < head_ks.length; i++) {
@@ -51,10 +55,13 @@ define(function(require) {
     };
     multi_pool.prototype.has = function(keys, any = true) {
         if(!keys.length) return;
+        var self = this;
         var _chk = function(pool, keys) {
             var head_ks = keys[0];
             var tail_k = keys.slice(1);
-            if(!(head_ks instanceof Array)) {
+            if(head_ks == self.SYM_WC) {
+                head_ks = Object.keys(pool);
+            } else if(!(head_ks instanceof Array)) {
                 head_ks = [head_ks];
             }
             for(var i = 0; i < head_ks.length; i++) {
@@ -122,10 +129,13 @@ define(function(require) {
     };
     multi_pool.prototype.remove = function(keys) {
         if(!keys.length) return;
+        var self = this;
         var _clear = function(pool, keys) {
             var head_ks = keys[0];
             var tail_k = keys.slice(1);
-            if(!(head_ks instanceof Array)) {
+            if(head_ks == self.SYM_WC) {
+                head_ks = Object.keys(pool);
+            } else if(!(head_ks instanceof Array)) {
                 head_ks = [head_ks];
             }
             for(var i = 0; i < head_ks.length; i++) {
@@ -145,18 +155,6 @@ define(function(require) {
             }
         }
         _clear(this.pool, keys);
-    };
-    
-    __extends(lm_multi_pool, multi_pool);
-    function lm_multi_pool() {
-        multi_pool.call(this);
-    }
-    lm_multi_pool.prototype.set = function(keys, id, val) {
-        
-    };
-    lm_multi_pool.prototype.get = function(keys) {
-    };
-    lm_multi_pool.prototype.remove = function(keys) {
     };
     
     return {

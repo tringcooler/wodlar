@@ -22,7 +22,10 @@ define(function (require) {$(document).ready(function() {
             console.log(v, p);
         });
         console.log('=====');
-        mp.foreach([[1,2,3], [4,5,6], [7,8,9]], function(v, p) {
+        //mp.foreach([[1,2,3], [4,5,6], [7,8,9]], function(v, p) {
+        //    console.log(v, p);
+        //});
+        mp.foreach(['*', '*', '*'], function(v, p) {
             console.log(v, p);
         });
         console.log(mp.pool);
