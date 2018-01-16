@@ -1,14 +1,15 @@
 
-var wodlar_skill = (function(_super) {
-    
-    function wodlar_skill() {
-    }
-    
-    return wodlar_skill;
-    
-})();
+if(!define) var define = function(f){return f};
+define(function(require) {
 
-if(define) define(function() {
-    for(var i = 0; i < 10; i ++) console.log('123');
+    var wodlar_skill = (function(_super) {
+        
+        function wodlar_skill() {
+        }
+        
+        return wodlar_skill;
+        
+    })();
+
     return wodlar_skill;
 });
