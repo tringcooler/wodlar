@@ -1,6 +1,7 @@
 define(function (require) {$(document).ready(function() {
     console.log('start');
     console.log(require('action/attack'));
+    
     (function() {
         var mp = new (require('core/util').multi_pool)();
         mp.set([[1,2,3], [4,5,6], [7,8,9]], 'abc');
@@ -29,5 +30,11 @@ define(function (require) {$(document).ready(function() {
             console.log(v, p);
         });
         console.log(mp.pool);
+    });
+    
+    (function() {
+        var t = new (require('action/attack'))();
+        console.log(t, t.ID_CHAIN(), require('action/attack').prototype.ID_CHAIN());
     })();
+    
 });});

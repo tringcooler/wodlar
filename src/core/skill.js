@@ -1,15 +1,14 @@
 define(function(require) {
     
-    var global_skill_table = new (require('core/util').multi_pool)();
-    
+    var _super = require('core/meta');
+    __extends(skill, _super);
     function skill() {
+        _super.call(this);
     }
     
-    skill.prototype.ID = 'META';
+    skill.prototype.SETID('SKILL');
     
-    skill.prototype.regist = function(act_cls, obj1_cls, obj2_cls, method) {
-        
-    }
+    skill.prototype.REGTAB = new (require('core/skill_table'))();
     
     return skill;
     

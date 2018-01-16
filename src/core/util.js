@@ -113,8 +113,8 @@ define(function(require) {
         return _chk(this.pool, keys);
     };
     multi_pool.prototype.get = function(keys) {
-        if(!keys.length) return;
         var pool = this.pool;
+        if(!keys.length) return pool;
         for(var i = 0; i < keys.length - 1; i++) {
             if(typeof(pool) != 'object') {
                 return undefined;
