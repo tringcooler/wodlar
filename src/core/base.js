@@ -20,8 +20,8 @@ var subclass = (function(_super) {
 })(superclass)
 */
 
-var __require = (function() {
-    var __require_list = this.__require_list || {};
+var __require = this.__require || (function() {
+    var __require_list = {};
     var __require_load = function (s) {
         var elm = document.createElement('script');
         elm.type ='text/javascript';
@@ -29,15 +29,21 @@ var __require = (function() {
         elm.async = true;
         document.getElementsByTagName('head')[0].appendChild(elm);
     };
-    var __require = this.__require || function (s) {
+    var old_onerror = window.onerror;
+    var __require_onerror = function (message, source, lineno, colno, error) {
+        console.log('catch', arguments);
+        if(1) {
+            return true;
+        } else {
+            if(old_onerror) return old_onerror.apply(this, arguments);
+        }
+    };
+    window.onerror = __require_onerror;
+    var __require = function (s) {
         if(!(s in __require_list)) {
-            try {
-                __require_load(s);
-            } catch(err) {
-                console.log('catch', err);
-            }
+            __require_load(s);
             console.log('before', s);
-            throw 'aaaa';
+            throw new Error('aaaa');
             console.log('after', s);
             __require_list[s] = elm;
         }
