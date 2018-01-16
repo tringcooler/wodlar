@@ -1,11 +1,11 @@
-__require('core/action');
-
-var wodlar_action_atack = (function(_super) {
+define(function(require) {
     
-    __extends(subclass, _super);
-    function wodlar_action_atack() {
+    var _super = require('core/action');
+    __extends(action_atack, _super);
+    
+    function action_atack() {
     }
     
-    return wodlar_action_atack;
+    return action_atack;
     
-})(wodlar_action);
+});

@@ -1,8 +1,8 @@
-var wodlar_skill = (function() {
+define(function(require) {
     
-    function wodlar_skill() {
+    function skill() {
     }
     
-    return wodlar_skill;
+    return skill;
     
-})();
+});

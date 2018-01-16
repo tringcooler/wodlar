@@ -1,5 +1,4 @@
-__require('skill/atack');
-
-$(document).ready(function() {
+define(function (require) {$(document).ready(function() {
     console.log('start');
-});
+    console.log(require('skill/atack'));
+});});

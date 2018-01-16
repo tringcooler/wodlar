@@ -1,8 +1,8 @@
-var wodlar_action = (function() {
+define(function(require) {
     
-    function wodlar_action() {
+    function action() {
     }
     
-    return wodlar_action;
+    return action;
     
-})();
+});
