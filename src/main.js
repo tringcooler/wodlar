@@ -18,6 +18,10 @@ define(function (require) {$(document).ready(function() {
         );
         mp.remove([[1,3], [5], [7,8,9]]);
         //mp.remove([[1,3], [4, 5, 6], [7,8,9]]);
+        mp.foreach([1, [4, 5, 6], [7,8], 10], function(v, p) {
+            console.log(v, p);
+        });
+        console.log('=====');
         mp.foreach([[1,2,3], [4,5,6], [7,8,9]], function(v, p) {
             console.log(v, p);
         });

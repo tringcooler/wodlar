@@ -25,9 +25,19 @@ define(function(require) {
                     pool[head_k] = {};
                 }
                 var npool = pool[head_k];
+                var oldnp = undefined;
+                if(typeof(npool) != 'object') {
+                    oldnp = npool;
+                    npool = {}
+                    pool[head_k] = npool;
+                };
                 _scan(npool, tail_k, npath);
                 if(Object.keys(npool).length < 1) {
-                    delete pool[head_k];
+                    if(oldnp === undefined) {
+                        delete pool[head_k];
+                    } else {
+                        pool[head_k] = oldnp;
+                    }
                     continue;
                 }
             }
@@ -141,7 +151,7 @@ define(function(require) {
     function lm_multi_pool() {
         multi_pool.call(this);
     }
-    lm_multi_pool.prototype.set = function(keys, val) {
+    lm_multi_pool.prototype.set = function(keys, id, val) {
         
     };
     lm_multi_pool.prototype.get = function(keys) {
