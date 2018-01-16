@@ -1,5 +1,5 @@
+__require('core/skill');
 
-define(function (require) {$(document).ready(function() {
+$(document).ready(function() {
     console.log('start');
-    console.log(require('core/skill'));
-});});
+});

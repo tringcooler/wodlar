@@ -19,3 +19,12 @@ var subclass = (function(_super) {
     return subclass;
 })(superclass)
 */
+
+var __require_list = this.__require_list || {};
+var __require = this.__require || function (s) {
+    if(!(s in __require_list)) {
+        var elm = $('<script>').attr('type', 'text/javascript').attr('src', 'src/' + s);
+        $('head').append(elm);
+        __require_list[s] = elm;
+    }
+}
