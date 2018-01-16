@@ -38,7 +38,7 @@ var __require = this.__require || (function() {
             if(old_onerror) return old_onerror.apply(this, arguments);
         }
     };
-    window.onerror = __require_onerror;
+    window.addEventListener('error', __require_onerror)
     var __require = function (s) {
         if(!(s in __require_list)) {
             __require_load(s);
