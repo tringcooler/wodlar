@@ -64,7 +64,7 @@ define(function(require) {
                         continue;
                     }
                 }
-                var r = _chk(npool, tail_k, any);
+                var r = _chk(npool, tail_k);
                 if(r) {
                     if(any) {
                         return true;
@@ -105,19 +105,25 @@ define(function(require) {
     multi_pool.prototype.remove = function(keys) {
         if(!keys.length) return;
         var _clear = function(pool, keys) {
-            var head_k = keys[0];
+            var head_ks = keys[0];
             var tail_k = keys.slice(1);
-            if(!(head_k in pool)) return;
-            if(tail_k.length < 1) {
-                delete pool[head_k];
-                return;
+            if(!(head_ks instanceof Array)) {
+                head_ks = [head_ks];
             }
-            var npool = pool[head_k];
-            if(typeof(npool) != 'object') return;
-            _clear(npool, tail_k);
-            if(Object.keys(npool).length < 1) {
-                delete pool[head_k];
-                return;
+            for(var i = 0; i < head_ks.length; i++) {
+                var head_k = head_ks[i];
+                if(!(head_k in pool)) continue;
+                if(tail_k.length < 1) {
+                    delete pool[head_k];
+                    continue;
+                }
+                var npool = pool[head_k];
+                if(typeof(npool) != 'object') continue;
+                _clear(npool, tail_k);
+                if(Object.keys(npool).length < 1) {
+                    delete pool[head_k];
+                    continue;
+                }
             }
         }
         _clear(this.pool, keys);

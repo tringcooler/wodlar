@@ -16,6 +16,8 @@ define(function (require) {$(document).ready(function() {
             mp.has([[1,2,3], [4,5,6,7], [7,8,9]]),
             mp.has([[1,2,3], [4,5,6,7], [7,8,9]], false),
         );
+        mp.remove([[1,3], [5], [7,8,9]]);
+        //mp.remove([[1,3], [4, 5, 6], [7,8,9]]);
         console.log(mp.pool);
     })();
 });});
