@@ -1,11 +1,11 @@
 define(function(require) {
     
     var _super = require('core/action');
-    __extends(action_atack, _super);
+    __extends(action_attack, _super);
     
-    function action_atack() {
+    function action_attack() {
     }
     
-    return action_atack;
+    return action_attack;
     
 });
