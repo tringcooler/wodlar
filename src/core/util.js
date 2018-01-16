@@ -5,7 +5,7 @@ define(function(require) {
     }
     multi_pool.prototype.foreach = function(keys, func) {
         if(!keys.length) return;
-        var _scan = function(pool, keys) {
+        var _scan = function(pool, keys, path) {
             var head_ks = keys[0];
             var tail_k = keys.slice(1);
             if(!(head_ks instanceof Array)) {
@@ -13,18 +13,26 @@ define(function(require) {
             }
             for(var i = 0; i < head_ks.length; i++) {
                 var head_k = head_ks[i];
+                var npath = path.concat([head_k]);
                 if(tail_k.length < 1) {
-                    pool[head_k] = func(pool[head_k]);
+                    var r = func(pool[head_k], npath);
+                    if(r !== undefined) {
+                        pool[head_k] = r;
+                    }
                     continue;
                 }
                 if(!(head_k in pool)) {
                     pool[head_k] = {};
                 }
                 var npool = pool[head_k];
-                _scan(npool, tail_k);
+                _scan(npool, tail_k, npath);
+                if(Object.keys(npool).length < 1) {
+                    delete pool[head_k];
+                    continue;
+                }
             }
         };
-        _scan(this.pool, keys);
+        _scan(this.pool, keys, []);
     };
     multi_pool.prototype.set = function(keys, val) {
         this.foreach(keys, function(v) {
