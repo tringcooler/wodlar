@@ -8,7 +8,7 @@ define(function(require) {
         _super.call(this);
     }
     
-    action.prototype.SETID('ACTION');
+    action.prototype.SETID('#ACTION');
     action.prototype.FIRST_INIT = function(cls, proto) {
         console.log('action init', proto.ID);
     };

@@ -45,6 +45,8 @@ define(function(require) {
         proto._FIRST_INIT();
     }
     
+    meta.prototype.ID = '#META';
+    
     meta.prototype._FIRST_INIT = function() {
         if(!(this.ID in INIT_TAB)) {
             if('ID' in this.__proto__) this.__proto__._FIRST_INIT();
@@ -53,9 +55,11 @@ define(function(require) {
             }
             INIT_TAB[this.ID] = this.constructor;
         }
-    }
+    };
     
-    meta.prototype.ID = 'META';
+    meta.prototype.ID2CLASS = function(id) {
+        return INIT_TAB(id);
+    };
     
     meta.prototype.ID_CHAIN = function() {
         var proto = _get_proto(this);

@@ -8,7 +8,7 @@ define(function(require) {
         _super.call(this);
     }
     
-    skill.prototype.SETID('SKILL');
+    skill.prototype.SETID('#SKILL');
     skill.prototype.FIRST_INIT = function(cls, proto) {
         console.log('skill init', proto.ID);
     };
