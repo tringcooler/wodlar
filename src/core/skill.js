@@ -18,6 +18,8 @@ define(function(require) {
         REGTAB.regist([act_cls].concat(obj_clss).concat([prio, owner_pos, this.ID]), cb);
     };
     
+    skill.prototype.emit = function(act, objs, owner) {};
+    
     return skill;
     
 });

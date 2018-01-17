@@ -24,7 +24,7 @@ define(function(require) {
                 var sk_id = path[1];
                 obj.foreach_skill(sk_id, null, function(skid, srcid, sk) {
                     if(!self._is_broken()) {
-                        if(cb) cb.call(sk, self, obj, self.objs);
+                        if(cb) cb.call(sk, self, self.objs, obj);
                     }
                 });
             });

@@ -7,6 +7,7 @@ define(function(require) {
     function entity() {
         _super.call(this);
         skill_pool = new (require('core/util').multi_pool)();
+        this._init_nat_skill();
     }
     
     entity.prototype.SETID('#ENTITY');
@@ -19,6 +20,21 @@ define(function(require) {
             return src.ID_COVER;
         } else {
             return src;
+        }
+    };
+    
+    entity.prototype.NAT_SRC = '@NATURAL';
+    
+    entity.prototype._init_nat_skill = function() {
+        if(!this.init_nat_skill) return;
+        var sks = this.init_nat_skill();
+        for(var i = 0; i < sks.length; i++) {
+            var sk = sks[i];
+            if(typeof(sk) == 'string') {
+                this.lose_skill(sk, null);
+            } else {
+                this.gain_skill(sk, this.NAT_SRC);
+            }
         }
     };
     
@@ -36,6 +52,11 @@ define(function(require) {
             src = _cover(src);
         }
         this.skill_pool.remove([sk_id, _cover(src)]);
+    };
+    
+    entity.prototype.override_skill = function(nsk, nsrc, osk_id, osrc = null) {
+        this.lose_skill(osk_id, osrc);
+        this.gain_skill(nsk, nsrc);
     };
     
     entity.prototype.check_skill = function(sk_id, src) {
