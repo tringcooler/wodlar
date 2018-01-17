@@ -1,6 +1,7 @@
 define(function(require) {
     
     var REGTAB = require('core/regtab');
+    var PRIO_ACT = 100;
     
     var _super = require('core/meta');
     __extends(action, _super);
@@ -13,8 +14,6 @@ define(function(require) {
     action.prototype.FIRST_INIT = function(cls, proto) {
         console.log('action init', proto.ID);
     };
-    
-    action.prototype.PRIO_ACT = 100;
     
     action.prototype._emit_to_obj = function(node) {
         var self = this
@@ -39,7 +38,7 @@ define(function(require) {
         var prios = Object.keys(node).sort(function(a, b){return a-b});
         for(var i = 0; i < prios.length; i++) {
             var prio = prios[i];
-            if(prio >= this.PRIO_ACT) break;
+            if(prio >= PRIO_ACT) break;
             this._emit_to_obj(node[prio]);
             if(this._is_broken()) return;
         }
