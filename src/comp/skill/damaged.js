@@ -12,7 +12,7 @@ define(function(require) {
         proto.REGIST(
             require('action/attack'),
             [require('enity/attackable'), require('enity/attackable')],
-            1, 101, this.emit,
+            1, 10, this.emit,
         );
     };
     
