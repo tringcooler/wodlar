@@ -11,13 +11,14 @@ define(function(require) {
         console.log('skill_damaged init', proto.ID);
         proto.REGIST(
             require('action/attack'),
-            [require('enity/attackable'), require('enity/attackable')],
+            [require('entity/attackable'), require('entity/attackable')],
             1, 10, this.emit,
         );
     };
     
     skill_damaged.prototype.emit = function(act, objs, owner) {
         var [sbj, obj] = objs;
+        console.log(owner, 'be damaged by', sbj);
     };
     
     return skill_damaged;

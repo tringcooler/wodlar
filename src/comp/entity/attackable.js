@@ -10,7 +10,7 @@ define(function(require) {
     
     entity_attackable.prototype.init_nat_skill = function() {
         return [
-            
+            new (require('skill/damaged'))(),
         ];
     };
     

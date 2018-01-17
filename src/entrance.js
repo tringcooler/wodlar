@@ -5,7 +5,8 @@ requirejs.config({
         core: 'core',
         comp: 'comp',
         action: 'comp/action',
-        skill: 'comp/action',
+        skill: 'comp/skill',
+        entity: 'comp/entity',
     }
 });
 

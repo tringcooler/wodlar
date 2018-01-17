@@ -6,8 +6,8 @@ define(function(require) {
     
     var META = require('core/meta');
     var _cover = function(cls) {
-        if(cls instanceof META) {
-            return cls.ID_COVER;
+        if(cls === META || cls.prototype instanceof META) {
+            return cls.prototype.ID_COVER();
         } else {
             return cls;
         }

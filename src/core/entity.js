@@ -6,7 +6,7 @@ define(function(require) {
     __extends(entity, _super);
     function entity() {
         _super.call(this);
-        skill_pool = new (require('core/util').multi_pool)();
+        this.skill_pool = new (require('core/util').multi_pool)();
         this._init_nat_skill();
     }
     
@@ -15,11 +15,11 @@ define(function(require) {
         console.log('entity init', proto.ID);
     };
     
-    var _cover = function(src) {
-        if(src instanceof META) {
-            return src.ID_COVER;
+    var _cover = function(cls) {
+        if(cls === META || cls.prototype instanceof META) {
+            return cls.prototype.ID_COVER();
         } else {
-            return src;
+            return cls;
         }
     };
     
