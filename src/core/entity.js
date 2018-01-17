@@ -14,38 +14,58 @@ define(function(require) {
         console.log('entity init', proto.ID);
     };
     
-    entity.prototype.gain_skill = function(sk, src) {
-        var src_k;
+    var _cover = function(src) {
         if(src instanceof META) {
-            src_k = src.ID_COVER;
+            return src.ID_COVER;
         } else {
-            src_k = src;
+            return src;
         }
-        this.skill_pool.set([sk.ID, src_k], sk);
+    };
+    
+    entity.prototype.gain_skill = function(sk, src) {
+        this.skill_pool.set([sk.ID, _cover(src)], sk);
     };
     
     entity.prototype.lose_skill = function(sk_id, src) {
-        var src_k;
-        if(src instanceof META) {
-            src_k = src.ID_COVER;
-        } else {
-            src_k = src;
-        }
-        this.skill_pool.remove([sk_id, src_k]);
+        this.skill_pool.remove([sk_id, _cover(src)]);
     };
     
     entity.prototype.check_skill = function(sk_id, src) {
-        var src_k;
-        if(src instanceof META) {
-            src_k = src.ID_COVER;
-        } else {
-            src_k = src;
-        }
-        return this.skill_pool.has([sk_id, src_k], false);
+        return this.skill_pool.has([sk_id, _cover(src)], false);
     };
     
-    entity.prototype.emit = function(act, dir, obj) {
-        
+    entity.prototype.foreach_skill = function(sk_id, src, func) {
+        if(!sk_id) {
+            sk_id = '*';
+        }
+        if(!src) {
+            src = '*';
+        } else {
+            src = _cover(src);
+        }
+        this.skill_pool.foreach([sk_id, src], function(v, p) {
+            var [skid, srcid] = p;
+            if(func) func(skid, srcid, v);
+        });
+    };
+    
+    entity.prototype.get_skill_by_sk = function(sk_id) {
+        var r = {};
+        this.foreach_skill(sk_id, null, function(skid, srcid, sk) {
+            r[srcid] = sk;
+        });
+        return r;
+    };
+    
+    entity.prototype.get_skill_by_src = function(src) {
+        var r = {};
+        this.foreach_skill(null, src, function(skid, srcid, sk) {
+            if(!(srcid in r)) {
+                r[srcid] = {};
+            }
+            r[srcid][skid] = sk;
+        });
+        return r;
     };
     
     return entity;
