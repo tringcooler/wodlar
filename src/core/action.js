@@ -7,7 +7,6 @@ define(function(require) {
     function action(objs) {
         _super.call(this);
         this.objs = objs;
-        this._breaking = false;
     }
     
     action.prototype.SETID('#ACTION');
@@ -25,40 +24,40 @@ define(function(require) {
             node_mp.foreach([i, '*'], function(cb, path) {
                 var sk_id = path[1];
                 obj.foreach_skill(sk_id, null, function(skid, srcid, sk) {
-                    if(!self._is_break()) {
+                    if(!self._is_broken()) {
                         cb.call(sk, self, obj, self.objs);
                     }
                 });
             });
-            if(self._is_break()) break;
+            if(self._is_broken()) break;
         }
     };
     
     action.prototype.emit = function() {
+        this._unbreak();
         var node = REGTAB.check([this].concat(this.objs));
         var prios = Object.keys(node).sort(function(a, b){return a-b});
         for(var i = 0; i < prios.length; i++) {
             var prio = prios[i];
             if(prio >= this.PRIO_ACT) break;
             this._emit_to_obj(node[prio]);
-            if(this._is_break()) return this._break_done();
+            if(this._is_broken()) return;
         }
         if(this.effect) this.effect();
-        if(this._is_break()) return this._break_done();
+        if(this._is_broken()) return;
         for(; i < prios.length; i++) {
             var prio = prios[i];
             this._emit_to_obj(node[prio]);
-            if(this._is_break()) return this._break_done();
+            if(this._is_broken()) return;
         }
     };
     
-    action.prototype._is_break = function() {
+    action.prototype._is_broken = function() {
         return this._breaking;
     };
     
-    action.prototype._break_done = function(v) {
+    action.prototype._unbreak = function() {
         this._breaking = false;
-        return v;
     };
     
     action.prototype.break = function() {
