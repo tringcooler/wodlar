@@ -4,23 +4,23 @@ define(function(require) {
         this.pool = new (require('core/util').multi_pool)();
     }
     
-    regtab.prototype.regist = function(clss, id, val) {
+    regtab.prototype.regist = function(clss, idxs, val) {
         var keys = []
         for(var i = 0; i < clss.length; i++) {
             var cls = clss[i];
             keys.push(cls.ID_COVER);
         }
-        keys.push(id);
+        keys.concat(idxs);
         this.pool.set(keys, val);
     }
     
-    regtab.prototype.unregist = function(clss, id) {
+    regtab.prototype.unregist = function(clss, idxs) {
         var keys = []
         for(var i = 0; i < clss.length; i++) {
             var cls = clss[i];
             keys.push(cls.ID_COVER);
         }
-        keys.push(id);
+        keys.concat(idxs);
         this.pool.remove(keys);
     }
     

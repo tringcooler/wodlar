@@ -49,15 +49,7 @@ define(function(require) {
         });
     };
     
-    entity.prototype.get_skill_by_sk = function(sk_id) {
-        var r = {};
-        this.foreach_skill(sk_id, null, function(skid, srcid, sk) {
-            r[srcid] = sk;
-        });
-        return r;
-    };
-    
-    entity.prototype.get_skill_by_src = function(src) {
+    entity.prototype.get_skill = function(sk_id = null, src = null) {
         var r = {};
         this.foreach_skill(null, src, function(skid, srcid, sk) {
             if(!(srcid in r)) {

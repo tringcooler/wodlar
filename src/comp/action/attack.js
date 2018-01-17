@@ -2,8 +2,8 @@ define(function(require) {
     
     var _super = require('core/action');
     __extends(action_attack, _super);
-    function action_attack() {
-        _super.call(this);
+    function action_attack(sbj, obj) {
+        _super.call(this, [sbj, obj]);
     }
     
     action_attack.prototype.SETID('#ACT_ATTACK');
