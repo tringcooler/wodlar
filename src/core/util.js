@@ -1,7 +1,10 @@
 define(function(require) {
     
-    function multi_pool() {
-        this.pool = {};
+    function multi_pool(pool = null) {
+        if(pool === null) {
+            pool = {};
+        }
+        this.pool = pool;
     }
     multi_pool.prototype.SYM_WC = '*';
     multi_pool.prototype.foreach = function(keys, func) {

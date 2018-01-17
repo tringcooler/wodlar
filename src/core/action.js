@@ -17,6 +17,17 @@ define(function(require) {
     ction.prototype.PRIO_ACT = 100;
     
     action.prototype._emit_to_obj = function(node) {
+        var objs = this.objs;
+        var node_mp = new (require('core/util').multi_pool)(node);
+        for(var i = 0; i < objs.length; i++) {
+            var obj = objs[i];
+            node_mp.foreach([obj.ID, '*'], function(cb, path) {
+                var sk_id = path[1];
+                obj.foreach_skill(sk_id, null, function(skid, srcid, sk) {
+                    cb.call(sk, obj, objs);
+                });
+            });
+        }
     };
     
     action.prototype.emit = function() {

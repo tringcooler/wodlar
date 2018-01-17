@@ -4,23 +4,30 @@ define(function(require) {
         this.pool = new (require('core/util').multi_pool)();
     }
     
-    regtab.prototype.regist = function(clss, idxs, val) {
+    var META = require('core/meta');
+    var _cover = function(cls) {
+        if(cls instanceof META) {
+            return cls.ID_COVER;
+        } else {
+            return cls;
+        }
+    };
+    
+    regtab.prototype.regist = function(clss, val) {
         var keys = []
         for(var i = 0; i < clss.length; i++) {
             var cls = clss[i];
-            keys.push(cls.ID_COVER);
+            keys.push(_cover(cls));
         }
-        keys.concat(idxs);
         this.pool.set(keys, val);
     }
     
-    regtab.prototype.unregist = function(clss, idxs) {
+    regtab.prototype.unregist = function(clss) {
         var keys = []
         for(var i = 0; i < clss.length; i++) {
             var cls = clss[i];
-            keys.push(cls.ID_COVER);
+            keys.push(_cover(cls));
         }
-        keys.concat(idxs);
         this.pool.remove(keys);
     }
     

@@ -13,9 +13,9 @@ define(function(require) {
         console.log('skill init', proto.ID);
     };
     
-    skill.prototype.REGIST = function(act_cls, obj1_cls, obj2_cls, prio, unbound_method) {
+    skill.prototype.REGIST = function(act_cls, obj1_cls, obj2_cls, owner_cls, prio, unbound_method) {
         var cb = unbound_method;
-        REGTAB.regist([act_cls, obj1_cls, obj2_cls], [prio, this.ID], cb);
+        REGTAB.regist([act_cls, obj1_cls, obj2_cls, prio, owner_cls, this.ID], cb);
     };
     
     return skill;

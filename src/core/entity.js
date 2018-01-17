@@ -27,10 +27,26 @@ define(function(require) {
     };
     
     entity.prototype.lose_skill = function(sk_id, src) {
+        if(!sk_id) {
+            sk_id = '*';
+        }
+        if(!src) {
+            src = '*';
+        } else {
+            src = _cover(src);
+        }
         this.skill_pool.remove([sk_id, _cover(src)]);
     };
     
     entity.prototype.check_skill = function(sk_id, src) {
+        if(!sk_id) {
+            sk_id = '*';
+        }
+        if(!src) {
+            src = '*';
+        } else {
+            src = _cover(src);
+        }
         return this.skill_pool.has([sk_id, _cover(src)], false);
     };
     
