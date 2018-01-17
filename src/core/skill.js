@@ -9,9 +9,6 @@ define(function(require) {
     }
     
     skill.prototype.SETID('#SKILL');
-    skill.prototype.FIRST_INIT = function(cls, proto) {
-        console.log('skill init', proto.ID);
-    };
     
     skill.prototype.REGIST = function(act_cls, obj_clss, owner_pos, prio, unbound_method) {
         var cb = unbound_method;

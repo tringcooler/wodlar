@@ -32,16 +32,16 @@ define(function (require) {$(document).ready(function() {
         console.log(mp.pool);
     });
     
-    (function() {
+    /*(function() {
         var t = new (require('action/attack'))();
         console.log(t, t.ID_CHAIN(), require('action/attack').prototype.ID_CHAIN());
-    });
+    });*/
     
     (function() {
         var mcls = require('entity/attackable');
         var m1 = new mcls();
         var m2 = new mcls();
-        var acls = require('action/attack');
+        var acls = require('action/dualact')('attack');
         var a1 = new acls(m1, m2);
         a1.emit();
     })();

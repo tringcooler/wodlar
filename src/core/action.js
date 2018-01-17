@@ -10,9 +10,6 @@ define(function(require) {
     }
     
     action.prototype.SETID('#ACTION');
-    action.prototype.FIRST_INIT = function(cls, proto) {
-        console.log('action init', proto.ID);
-    };
     
     action.prototype._emit_to_obj = function(node) {
         var self = this

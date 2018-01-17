@@ -10,7 +10,7 @@ define(function(require) {
     skill_damaged.prototype.FIRST_INIT = function(cls, proto) {
         console.log('skill_damaged init', proto.ID);
         proto.REGIST(
-            require('action/attack'),
+            require('action/dualact')('attack'),
             [require('entity/attackable'), require('entity/attackable')],
             1, 10, this.emit,
         );

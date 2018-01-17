@@ -11,9 +11,6 @@ define(function(require) {
     }
     
     entity.prototype.SETID('#ENTITY');
-    entity.prototype.FIRST_INIT = function(cls, proto) {
-        console.log('entity init', proto.ID);
-    };
     
     var _cover = function(cls) {
         if(cls === META || cls.prototype instanceof META) {
