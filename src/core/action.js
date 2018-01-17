@@ -21,7 +21,7 @@ define(function(require) {
         var node_mp = new (require('core/util').multi_pool)(node);
         for(var i = 0; i < objs.length; i++) {
             var obj = objs[i];
-            node_mp.foreach([obj.ID, '*'], function(cb, path) {
+            node_mp.foreach([i, '*'], function(cb, path) {
                 var sk_id = path[1];
                 obj.foreach_skill(sk_id, null, function(skid, srcid, sk) {
                     cb.call(sk, obj, objs);
