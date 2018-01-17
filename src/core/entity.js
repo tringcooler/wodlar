@@ -28,10 +28,10 @@ define(function(require) {
     
     entity.prototype.lose_skill = function(sk_id, src) {
         if(!sk_id) {
-            sk_id = '*';
+            sk_id = this.skill_pool.SYM_WC;
         }
         if(!src) {
-            src = '*';
+            src = this.skill_pool.SYM_WC;
         } else {
             src = _cover(src);
         }
@@ -40,10 +40,10 @@ define(function(require) {
     
     entity.prototype.check_skill = function(sk_id, src) {
         if(!sk_id) {
-            sk_id = '*';
+            sk_id = this.skill_pool.SYM_WC;
         }
         if(!src) {
-            src = '*';
+            src = this.skill_pool.SYM_WC;
         } else {
             src = _cover(src);
         }
@@ -52,10 +52,10 @@ define(function(require) {
     
     entity.prototype.foreach_skill = function(sk_id, src, func) {
         if(!sk_id) {
-            sk_id = '*';
+            sk_id = this.skill_pool.SYM_WC;
         }
         if(!src) {
-            src = '*';
+            src = this.skill_pool.SYM_WC;
         } else {
             src = _cover(src);
         }

@@ -20,11 +20,11 @@ define(function(require) {
         var node_mp = new (require('core/util').multi_pool)(node);
         for(var i = 0; i < self.objs.length; i++) {
             var obj = self.objs[i];
-            node_mp.foreach([i, '*'], function(cb, path) {
+            node_mp.foreach([i, node_mp.SYM_WC], function(cb, path) {
                 var sk_id = path[1];
                 obj.foreach_skill(sk_id, null, function(skid, srcid, sk) {
                     if(!self._is_broken()) {
-                        cb.call(sk, self, obj, self.objs);
+                        if(cb) cb.call(sk, self, obj, self.objs);
                     }
                 });
             });
