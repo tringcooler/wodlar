@@ -42,13 +42,6 @@ define(function(require) {
             this._emit_to_obj(node[prio]);
             if(this._is_broken()) return;
         }
-        if(this.effect) this.effect();
-        if(this._is_broken()) return;
-        for(; i < prios.length; i++) {
-            var prio = prios[i];
-            this._emit_to_obj(node[prio]);
-            if(this._is_broken()) return;
-        }
     };
     
     action.prototype._is_broken = function() {
@@ -62,8 +55,6 @@ define(function(require) {
     action.prototype.break = function() {
         this._breaking = true;
     };
-    
-    action.prototype.effect = function() {};
     
     return action;
     
