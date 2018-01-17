@@ -38,7 +38,22 @@ define(function(require) {
         return proto;
     };
     
-    function meta() {}
+    var INIT_TAB = {};
+    
+    function meta() {
+        var proto = _get_proto(this);
+        proto._FIRST_INIT();
+    }
+    
+    meta.prototype._FIRST_INIT = function() {
+        if(!(this.ID in INIT_TAB)) {
+            if('ID' in this.__proto__) this.__proto__._FIRST_INIT();
+            if(('FIRST_INIT' in this) && this.FIRST_INIT) {
+                this.FIRST_INIT(this.constructor, this.constructor.prototype);
+            }
+            INIT_TAB[this.ID] = this.constructor;
+        }
+    }
     
     meta.prototype.ID = 'META';
     

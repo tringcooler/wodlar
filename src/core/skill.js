@@ -1,6 +1,6 @@
 define(function(require) {
     
-    var REGTAB = new (require('core/regtab'))();
+    var REGTAB = require('core/regtab');
     
     var _super = require('core/meta');
     __extends(skill, _super);
@@ -9,8 +9,9 @@ define(function(require) {
     }
     
     skill.prototype.SETID('SKILL');
-    
-    skill.prototype._regtab = REGTAB;
+    skill.prototype.FIRST_INIT = function(cls, proto) {
+        console.log('skill init', proto.ID);
+    };
     
     skill.prototype.REGIST = function(act_cls, obj1_cls, obj2_cls, unbound_method) {
         var cb = unbound_method;

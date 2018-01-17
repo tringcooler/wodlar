@@ -8,6 +8,9 @@ define(function(require) {
     }
     
     entity.prototype.SETID('ENTITY');
+    entity.prototype.FIRST_INIT = function(cls, proto) {
+        console.log('entity init', proto.ID);
+    };
     
     entity.prototype.emit(act, dir, obj) {
         

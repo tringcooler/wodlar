@@ -37,6 +37,6 @@ define(function(require) {
         return node;
     }
     
-    return regtab;
+    return new regtab();
     
 });
