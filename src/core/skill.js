@@ -15,7 +15,7 @@ define(function(require) {
             if(this.MUXID && this.ctx_holden(ctx, this.MUXID)) return;
             unbound_method.call(this, act, objs, owner, ctx);
         }
-        REGTAB.regist([act_cls].concat(obj_clss).concat([prio, owner_pos, this.ID]), cb);
+        REGTAB.regist([obj_clss.length, act_cls].concat(obj_clss).concat([prio, owner_pos, this.ID]), cb);
     };
     
     skill.prototype.ctx_holden = function(ctx, s) {

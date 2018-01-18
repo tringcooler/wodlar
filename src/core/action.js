@@ -31,7 +31,7 @@ define(function(require) {
     action.prototype.emit = function() {
         this._unbreak();
         var emit_ctx = {};
-        var node = REGTAB.check([this].concat(this.objs));
+        var node = REGTAB.check([this.objs.length, this].concat(this.objs));
         var prios = Object.keys(node).sort(function(a, b){return a-b});
         for(var i = 0; i < prios.length; i++) {
             var prio = prios[i];

@@ -12,6 +12,13 @@ define(function(require) {
             return cls;
         }
     };
+    var _id = function(obj) {
+        if(obj instanceof META) {
+            return obj.ID;
+        } else {
+            return obj;
+        }
+    };
     
     regtab.prototype.regist = function(clss, val) {
         var keys = []
@@ -35,7 +42,7 @@ define(function(require) {
         var keys = []
         for(var i = 0; i < objs.length; i++) {
             var obj = objs[i];
-            keys.push(obj.ID);
+            keys.push(_id(obj));
         }
         var node = this.pool.get(keys);
         if(node === undefined) {
