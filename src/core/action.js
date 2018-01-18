@@ -11,7 +11,7 @@ define(function(require) {
     
     action.prototype.SETID('#ACTION');
     
-    action.prototype._emit_to_obj = function(node) {
+    action.prototype._emit_to_obj = function(node, ctx) {
         var self = this
         var node_mp = new (require('core/util').multi_pool)(node);
         for(var i = 0; i < self.objs.length; i++) {
@@ -20,7 +20,7 @@ define(function(require) {
                 var sk_id = path[1];
                 obj.foreach_skill(sk_id, null, function(skid, srcid, sk) {
                     if(!self._is_broken()) {
-                        if(cb) cb.call(sk, self, self.objs, obj);
+                        if(cb) cb.call(sk, self, self.objs, obj, ctx);
                     }
                 });
             });
@@ -30,11 +30,12 @@ define(function(require) {
     
     action.prototype.emit = function() {
         this._unbreak();
+        var emit_ctx = {};
         var node = REGTAB.check([this].concat(this.objs));
         var prios = Object.keys(node).sort(function(a, b){return a-b});
         for(var i = 0; i < prios.length; i++) {
             var prio = prios[i];
-            this._emit_to_obj(node[prio]);
+            this._emit_to_obj(node[prio], emit_ctx);
             if(this._is_broken()) return;
         }
     };

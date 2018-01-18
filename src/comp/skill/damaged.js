@@ -15,10 +15,11 @@ define(function(require) {
             1, 10, this.emit,
         );
     };
+    skill_damaged.prototype.MUXID = '$UNI_SKL_DAMAGED';
     
-    skill_damaged.prototype.emit = function(act, objs, owner) {
+    skill_damaged.prototype.emit = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
-        console.log(owner, 'be damaged by', sbj);
+        console.log(this.ID, owner, 'be damaged by', sbj);
     };
     
     return skill_damaged;
