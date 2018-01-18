@@ -11,11 +11,26 @@ define(function(require) {
     skill.prototype.SETID('#SKILL');
     
     skill.prototype.REGIST = function(act_cls, obj_clss, owner_pos, prio, unbound_method) {
-        var cb = unbound_method;
+        var cb = function(act, objs, owner, ctx) {
+            if(this.MUXID && this.ctx_holden(ctx, this.MUXID)) return;
+            unbound_method.call(this, act, objs, owner, ctx);
+        }
         REGTAB.regist([act_cls].concat(obj_clss).concat([prio, owner_pos, this.ID]), cb);
     };
     
-    skill.prototype.emit = function(act, objs, owner) {};
+    skill.prototype.ctx_holden = function(ctx, s) {
+        if(!ctx.holdtab) {
+            ctx.holdtab = {};
+        }
+        if(!ctx.holdtab[s]) {
+            ctx.holdtab[s] = true;
+            return false;
+        } else {
+            return true;
+        }
+    };
+    
+    skill.prototype.emit = function(act, objs, owner, ctx) {};
     
     return skill;
     
