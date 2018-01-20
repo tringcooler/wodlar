@@ -12,7 +12,7 @@ define(function(require) {
         proto.REGIST(
             require('action/dualact')('attack'),
             [require('entity/attackable'), require('entity/attackable')],
-            1, 10, this.emit,
+            1, null, this.emit
         );
     };
     skill_damaged.prototype.MUXID = '$UNI_SKL_DAMAGED';

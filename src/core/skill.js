@@ -10,7 +10,16 @@ define(function(require) {
     
     skill.prototype.SETID('#SKILL');
     
+    var BASE_PRIO = 100;
+    var BASE_PRIO_STEP = 10;
+    skill.prototype.DPRIO = function() {
+        return this.ID_CHAIN().length * BASE_PRIO_STEP + BASE_PRIO;
+    };
+    
     skill.prototype.REGIST = function(act_cls, obj_clss, owner_pos, prio, unbound_method) {
+        if(!prio) {
+            prio = this.DPRIO();
+        }
         var cb = function(act, objs, owner, ctx) {
             if(this.MUXID && this.ctx_holden(ctx, this.MUXID)) return;
             unbound_method.call(this, act, objs, owner, ctx);

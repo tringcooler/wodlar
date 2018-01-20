@@ -32,7 +32,7 @@ define(function(require) {
         this._unbreak();
         var emit_ctx = {};
         var node = REGTAB.check([this.objs.length, this].concat(this.objs));
-        var prios = Object.keys(node).sort(function(a, b){return a-b});
+        var prios = Object.keys(node).sort(function(a, b){return b - a});
         for(var i = 0; i < prios.length; i++) {
             var prio = prios[i];
             this._emit_to_obj(node[prio], emit_ctx);
