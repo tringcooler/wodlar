@@ -49,6 +49,7 @@ define(function (require) {$(document).ready(function() {
     });
     
     (function() {
+        require('action/subact')('by_slash', require('action/dualact')('attack'));
         var player = new (require('entity/player'))('p1');
         require('util/player').regist(player);
         var mcls = require('entity/character');
