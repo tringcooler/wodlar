@@ -69,7 +69,7 @@ define(function (require) {$(document).ready(function() {
         acls = require('action/dualact')('attack');
         var a4 = new acls(m1, m2);
         a4.emit();
-    });
+    })();
     
     (function() {
         var meta_cls = function(spr) {
@@ -88,6 +88,6 @@ define(function (require) {$(document).ready(function() {
         var c2 = require('action/subact')('sub1', c1);
         var c3 = require('action/subact')('sub2', c2);
         var o1 = new c3();
-    })();
+    });
     
 });});
