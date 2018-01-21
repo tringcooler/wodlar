@@ -10,12 +10,12 @@ define(function(require) {
     defcls.prototype.FIRST_INIT = function(cls, proto) {
         console.log('skill_equipped init', proto.ID);
         proto.REGIST(
-            require('action/dualact')('equip'),
+            require('action/stdact')['equip'],
             [require('entity/character'), require('entity/equipment')],
             1, null, this.equip
         );
         proto.REGIST(
-            require('action/dualact')('unequip'),
+            require('action/stdact')['unequip'],
             [require('entity/character'), require('entity/equipment')],
             1, null, this.unequip
         );

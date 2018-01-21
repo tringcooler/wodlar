@@ -3,7 +3,7 @@ define(function(require) {
     var cls_player = require('entity/player');
     var current_player = null;
     
-    var log_act = require('action/uniact')('player_log');
+    var log_act = require('action/stdact')['player_log'];
     
     var _argv = function(args, stt = 0) {
         return Array.prototype.slice.call(args, stt);

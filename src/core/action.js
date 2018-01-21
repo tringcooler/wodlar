@@ -28,9 +28,10 @@ define(function(require) {
         }
     };
     
-    action.prototype.emit = function() {
+    action.prototype.emit = function(ctx = null) {
         this._unbreak();
         var emit_ctx = {};
+        if(ctx) emit_ctx = ctx;
         var node = REGTAB.check([this.objs.length, this].concat(this.objs));
         var prios = Object.keys(node).sort(function(a, b){return b - a});
         for(var i = 0; i < prios.length; i++) {

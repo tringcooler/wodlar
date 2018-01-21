@@ -11,7 +11,7 @@ define(function(require) {
     skill_log.prototype.FIRST_INIT = function(cls, proto) {
         console.log('skill_player_log init', proto.ID);
         proto.REGIST(
-            require('action/uniact')('player_log'),
+            require('action/stdact')['player_log'],
             [require('entity/player')],
             0, null, this.emit
         );

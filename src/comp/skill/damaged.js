@@ -10,7 +10,7 @@ define(function(require) {
     defcls.prototype.FIRST_INIT = function(cls, proto) {
         console.log('skill_damaged init', proto.ID);
         proto.REGIST(
-            require('action/dualact')('attack'),
+            require('action/stdact')['attack'],
             [require('entity/attackable'), require('entity/attackable')],
             1, null, this.emit
         );
