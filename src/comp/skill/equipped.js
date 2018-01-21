@@ -22,14 +22,22 @@ define(function(require) {
     };
     defcls.prototype.MUXID = '$UNI_SKL_EQUIPPED';
     
+    var log_equip = require('util/player').logger(function(eq, slf, src) {
+        if(eq) {
+            return slf.repr() + ' be equipped by ' + src.repr();
+        } else {
+            return slf.repr() + ' be unequipped by ' + src.repr();
+        }
+    });
+    
     defcls.prototype.equip = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
-        console.log(this.ID, owner, 'be equipped by', sbj);
+        log_equip(true, owner, sbj);
     };
     
     defcls.prototype.unequip = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
-        console.log(this.ID, owner, 'be unequipped by', sbj);
+        log_equip(false, owner, sbj);
     };
     
     return defcls;

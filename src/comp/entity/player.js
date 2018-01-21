@@ -34,7 +34,7 @@ define(function(require) {
     };
     
     entity_player.prototype.log = function(lvl, ctt) {
-        console.log('LOG(', lvl, 'at', this.pid, '):', ctt);
+        console.log('LOG(' + lvl + ' at ' + this.pid + '):', ctt);
     };
     
     return entity_player;
