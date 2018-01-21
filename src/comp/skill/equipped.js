@@ -24,12 +24,12 @@ define(function(require) {
     
     defcls.prototype.equip = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
-        console.log(this.ID, owner, 'be equipped by', sbj);
+        require('util/player').info(this.ID, owner, 'be equipped by', sbj);
     };
     
     defcls.prototype.unequip = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
-        console.log(this.ID, owner, 'be unequipped by', sbj);
+        require('util/player').info(this.ID, owner, 'be unequipped by', sbj);
     };
     
     return defcls;

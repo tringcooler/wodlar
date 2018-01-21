@@ -7,7 +7,8 @@ requirejs.config({
         action: 'comp/action',
         skill: 'comp/skill',
         entity: 'comp/entity',
-    }
+        util: 'comp/util',
+    },
 });
 
 requirejs(['jquery']);

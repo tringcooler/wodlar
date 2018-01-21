@@ -38,6 +38,8 @@ define(function (require) {$(document).ready(function() {
     });*/
     
     (function() {
+        var player = new (require('entity/player'))('p1');
+        require('util/player').regist(player);
         var mcls = require('entity/character');
         var m1 = new mcls();
         var m2 = new mcls();

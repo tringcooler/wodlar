@@ -19,7 +19,7 @@ define(function(require) {
     
     defcls.prototype.emit = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
-        console.log(this.ID, owner, 'be damaged by', sbj);
+        require('util/player').info(this.ID, owner, 'be damaged by', sbj);
     };
     
     return defcls;
