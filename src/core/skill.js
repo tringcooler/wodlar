@@ -39,8 +39,6 @@ define(function(require) {
         }
     };
     
-    skill.prototype.emit = function(act, objs, owner, ctx) {};
-    
     return skill;
     
 });

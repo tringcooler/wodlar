@@ -11,15 +11,25 @@ define(function(require) {
         console.log('skill_equipped init', proto.ID);
         proto.REGIST(
             require('action/dualact')('equip'),
-            [require('entity/character'), require('entity/equipped')],
-            1, null, this.emit
+            [require('entity/character'), require('entity/equipment')],
+            1, null, this.equip
+        );
+        proto.REGIST(
+            require('action/dualact')('unequip'),
+            [require('entity/character'), require('entity/equipment')],
+            1, null, this.unequip
         );
     };
     skill_equipped.prototype.MUXID = '$UNI_SKL_EQUIPPED';
     
-    skill_equipped.prototype.emit = function(act, objs, owner, ctx) {
+    skill_equipped.prototype.equip = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
         console.log(this.ID, owner, 'be equipped by', sbj);
+    };
+    
+    skill_unequipped.prototype.unequip = function(act, objs, owner, ctx) {
+        var [sbj, obj] = objs;
+        console.log(this.ID, owner, 'be unequipped by', sbj);
     };
     
     return skill_equipped;
