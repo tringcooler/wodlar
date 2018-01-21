@@ -35,6 +35,10 @@ define(function(require) {
         }
     };
     
+    entity.prototype.init_nat_skill = function() {
+        return [];
+    };
+    
     entity.prototype.gain_skill = function(sk, src) {
         this.skill_pool.set([sk.ID, _cover(src)], sk);
     };
