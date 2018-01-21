@@ -69,6 +69,25 @@ define(function (require) {$(document).ready(function() {
         acls = require('action/dualact')('attack');
         var a4 = new acls(m1, m2);
         a4.emit();
+    });
+    
+    (function() {
+        var meta_cls = function(spr) {
+            if(spr) __extends(cls, spr);
+            function cls() {
+                if(spr) spr.call(this);
+            };
+            return cls
+        };
+        var c1 = meta_cls();
+        var c2 = meta_cls(c1);
+        var c3 = meta_cls(c2);
+        var o1 = new c3();
+        
+        var c1 = require('action/dualact')('test');
+        var c2 = require('action/subact')('sub1', c1);
+        var c3 = require('action/subact')('sub2', c2);
+        var o1 = new c3();
     })();
     
 });});

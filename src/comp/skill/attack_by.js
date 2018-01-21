@@ -1,5 +1,17 @@
 define(function(require) {
     
+    var act_atk = require('action/dualact')('attack');
+    var ent_atkbl = require('entity/attackable');
+    
+    var meta_act_atkb = function(atk_id) {
+        __extends(defcls, act_atk);
+        function act_atkb() {
+            act_atk.call(this);
+        };
+        act_atkb.prototype.SETID('#ACT_2_ATTACK_BY');
+        return act_atkb;
+    };
+    
     var _super = require('core/skill');
     return function(atk_id) {
         __extends(defcls, _super);
@@ -11,8 +23,8 @@ define(function(require) {
         defcls.prototype.FIRST_INIT = function(cls, proto) {
             console.log('skill_attack_by init', proto.ID);
             proto.REGIST(
-                require('action/dualact')('attack'),
-                [require('entity/attackable'), require('entity/attackable')],
+                act_atk,
+                [ent_atkbl, ent_atkbl],
                 0, this.DPRIO(1), this.emit
             );
         };
@@ -20,7 +32,7 @@ define(function(require) {
         
         defcls.prototype.emit = function(act, objs, owner, ctx) {
             var [sbj, obj] = objs;
-            var n_atk = require('action/dualact')('attack_by_' + atk_id);
+            var n_atk = meta2act('attack_by_' + atk_id);
             
             act.break();
         };
