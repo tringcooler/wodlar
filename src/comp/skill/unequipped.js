@@ -11,7 +11,7 @@ define(function(require) {
         console.log('skill_unequipped init', proto.ID);
         proto.REGIST(
             require('action/dualact')('equip'),
-            [require('core/entity'), require('entity/unequipped')],
+            [require('entity/character'), require('entity/unequipped')],
             1, null, this.emit
         );
     };
