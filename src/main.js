@@ -38,7 +38,7 @@ define(function (require) {$(document).ready(function() {
     });*/
     
     (function() {
-        var mcls = require('entity/attackable');
+        var mcls = require('entity/character');
         var m1 = new mcls();
         var m2 = new mcls();
         var acls = require('action/dualact')('attack');

@@ -11,10 +11,10 @@ define(function(require) {
     entity_equipment.prototype.EQTYP = 'TYP_EQUIPMENT';
     
     entity_equipment.prototype.init_nat_skill = function() {
-        return _super.prototype.init_nat_skill.call(this).concat([
+        return [
             new (require('skill/equipped'))(),
             new (require('skill/unequipped'))(),
-        ]);
+        ];
     };
     
     return entity_equipment;

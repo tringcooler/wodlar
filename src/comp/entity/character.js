@@ -1,6 +1,6 @@
 define(function(require) {
     
-    var _super = require('core/entity');
+    var _super = require('entity/attackable');
     __extends(entity_character, _super);
     function entity_character() {
         _super.call(this);
@@ -9,7 +9,7 @@ define(function(require) {
     entity_character.prototype.SETID('#ENT_CHARACTER');
     
     entity_character.prototype.init_nat_skill = function() {
-        return _super.prototype.init_nat_skill.call(this).concat([]);
+        return [];
     };
     
     return entity_character;

@@ -23,8 +23,16 @@ define(function(require) {
     entity.prototype.NAT_SRC = '@NATURAL';
     
     entity.prototype._init_nat_skill = function() {
-        if(!this.init_nat_skill) return;
-        var sks = this.init_nat_skill();
+        var proto = this.__proto__
+        var inifuncs = [];
+        while(proto.init_nat_skill) {
+            inifuncs.unshift(proto.init_nat_skill);
+            proto = proto.__proto__;
+        }
+        var sks = [];
+        for(var i = 0; i < inifuncs.length; i++) {
+            sks = sks.concat(inifuncs[i].call(this));
+        }
         for(var i = 0; i < sks.length; i++) {
             var sk = sks[i];
             if(typeof(sk) == 'string') {
@@ -33,10 +41,6 @@ define(function(require) {
                 this.gain_skill(sk, this.NAT_SRC);
             }
         }
-    };
-    
-    entity.prototype.init_nat_skill = function() {
-        return [];
     };
     
     entity.prototype.gain_skill = function(sk, src) {

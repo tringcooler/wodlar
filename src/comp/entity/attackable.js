@@ -9,9 +9,9 @@ define(function(require) {
     entity_attackable.prototype.SETID('#ENT_ATTACKABLE');
     
     entity_attackable.prototype.init_nat_skill = function() {
-        return _super.prototype.init_nat_skill.call(this).concat([
+        return [
             new (require('skill/damaged'))(),
-        ]);
+        ];
     };
     
     return entity_attackable;
