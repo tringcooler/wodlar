@@ -16,33 +16,33 @@ define(function(require) {
             current_player = new cls_player(player);
         }
     };
-    
-    var log = function() {
-        var lvl = arguments[0];
-        var ctt = _argv(arguments, 1);
-        var act_info = {
-            level: lvl,
-            content: ctt,
-        };
-        if(!current_player) {
-            regist('defualt');
+
+    var logger = function() {
+        var lvl, cb;
+        if(arguments.length > 1) {
+            lvl = arguments[0];
+            cb = arguments[1];
+        } else {
+            lvl = 'info';
+            cb = arguments[0];
         }
-        (new log_act(current_player, act_info)).emit();
+        if(!cb) return;
+        return function() {
+            var args = _argv(arguments);
+            var act_info = {
+                level: lvl,
+                arguments: args,
+                content: cb.apply(null, args),
+            };
+            if(!current_player) {
+                regist('defualt');
+            }
+            new log_act(current_player, act_info).emit();
+        };
     };
     
     return {
         regist, regist,
-        log: log,
-        
-        info: function() {
-            var args = _argv(arguments);
-            args.unshift('info');
-            log.apply(null, args);
-        },
-        error: function() {
-            var args = _argv(arguments);
-            args.unshift('error');
-            log.apply(null, args);
-        },
+        logger: logger,
     };
 });

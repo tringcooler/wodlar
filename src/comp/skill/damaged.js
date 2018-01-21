@@ -17,9 +17,13 @@ define(function(require) {
     };
     defcls.prototype.MUXID = '$UNI_SKL_DAMAGED';
     
+    var log_damage = require('util/player').logger(function(slf, src) {
+        return slf.ID + ' be damaged by ' + src.ID;
+    });
+    
     defcls.prototype.emit = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
-        require('util/player').info(this.ID, owner, 'be damaged by', sbj);
+        log_damage(owner, sbj);
     };
     
     return defcls;
