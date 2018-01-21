@@ -18,7 +18,7 @@ define(function(require) {
     defcls.prototype.MUXID = '$UNI_SKL_DAMAGED';
     
     var log_damage = require('util/player').logger(function(slf, src) {
-        return slf.ID + ' be damaged by ' + src.ID;
+        return slf.repr() + ' be damaged by ' + src.repr();
     });
     
     defcls.prototype.emit = function(act, objs, owner, ctx) {

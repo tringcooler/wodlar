@@ -82,6 +82,10 @@ define(function(require) {
         ID_TREE.add(proto.ID_CHAIN());
     };
     
+    meta.prototype.repr = function() {
+        return '<' + this.ID + '>';
+    };
+    
     return meta;
     
 });
