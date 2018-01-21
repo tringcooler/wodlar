@@ -55,7 +55,6 @@ define(function (require) {$(document).ready(function() {
         var m1 = new mcls();
         var m2 = new mcls();
         var ecls = require('entity/sword');
-        var ecls = require('entity/weapon');
         var e1 = new ecls();
         var acls = require('action/stdact')['equip'];
         var a1 = new acls(m1, e1, {type:'mainhand'});

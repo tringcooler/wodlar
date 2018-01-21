@@ -19,3 +19,11 @@ var subclass = (function(_super) {
     return subclass;
 })(superclass)
 */
+
+var __supermethod = this.__supermethod || function (_spr, _slf, mth) {
+    if(_spr.prototype[mth]) {
+        return _spr.prototype[mth].bind(_slf);
+    } else {
+        return function() {};
+    }
+};
