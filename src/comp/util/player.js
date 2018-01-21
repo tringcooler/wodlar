@@ -31,7 +31,6 @@ define(function(require) {
             var args = _argv(arguments);
             var act_info = {
                 level: lvl,
-                arguments: args,
                 content: cb.apply(null, args),
             };
             if(!current_player) {

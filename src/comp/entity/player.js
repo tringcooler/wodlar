@@ -18,7 +18,7 @@ define(function(require) {
     };
     skill_log.prototype.MUXID = '$UNI_SKL_PLAYER_LOG';
     skill_log.prototype.emit = function(act, objs, owner, ctx) {
-        console.log('LOG(', act.info.level, 'at', owner.pid, '):', act.info.content);
+        owner.log(act.info.level, act.info.content);
     };
     
     __extends(entity_player, entity);
@@ -31,6 +31,10 @@ define(function(require) {
         return [
             new skill_log(),
         ];
+    };
+    
+    entity_player.prototype.log = function(lvl, ctt) {
+        console.log('LOG(', lvl, 'at', this.pid, '):', ctt);
     };
     
     return entity_player;
