@@ -1,13 +1,13 @@
 define(function(require) {
     
     var _super = require('core/skill');
-    __extends(skill_equipped, _super);
-    function skill_equipped() {
+    __extends(defcls, _super);
+    function defcls() {
         _super.call(this);
     }
     
-    skill_equipped.prototype.SETID('#SKL_EQUIPPED');
-    skill_equipped.prototype.FIRST_INIT = function(cls, proto) {
+    defcls.prototype.SETID('#SKL_EQUIPPED');
+    defcls.prototype.FIRST_INIT = function(cls, proto) {
         console.log('skill_equipped init', proto.ID);
         proto.REGIST(
             require('action/dualact')('equip'),
@@ -20,18 +20,18 @@ define(function(require) {
             1, null, this.unequip
         );
     };
-    skill_equipped.prototype.MUXID = '$UNI_SKL_EQUIPPED';
+    defcls.prototype.MUXID = '$UNI_SKL_EQUIPPED';
     
-    skill_equipped.prototype.equip = function(act, objs, owner, ctx) {
+    defcls.prototype.equip = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
         console.log(this.ID, owner, 'be equipped by', sbj);
     };
     
-    skill_unequipped.prototype.unequip = function(act, objs, owner, ctx) {
+    defcls.prototype.unequip = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
         console.log(this.ID, owner, 'be unequipped by', sbj);
     };
     
-    return skill_equipped;
+    return defcls;
     
 });
