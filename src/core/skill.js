@@ -10,10 +10,11 @@ define(function(require) {
     
     skill.prototype.SETID('#SKILL');
     
-    var BASE_PRIO = 100;
+    var BASE_PRIO = 10000;
     var BASE_PRIO_STEP = 10;
-    skill.prototype.DPRIO = function() {
-        return this.ID_CHAIN().length * BASE_PRIO_STEP + BASE_PRIO;
+    var BASE_PRIO_RANK_STEP = 1000;
+    skill.prototype.DPRIO = function(rank = 0) {
+        return this.ID_CHAIN().length * BASE_PRIO_STEP + BASE_PRIO + rank * BASE_PRIO_RANK_STEP;
     };
     
     skill.prototype.REGIST = function(act_cls, obj_clss, owner_pos, prio, unbound_method) {

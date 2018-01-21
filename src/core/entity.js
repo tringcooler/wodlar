@@ -12,21 +12,27 @@ define(function(require) {
     
     entity.prototype.SETID('#ENTITY');
     
-    var _cover = function(cls) {
+    var _cover = function(key) {
+        var cls = key;
+        if(!cls.prototype) {
+            cls = cls.constructor;
+        }
         if(cls === META || cls.prototype instanceof META) {
             return cls.prototype.ID_COVER();
         } else {
-            return cls;
+            return key;
         }
     };
     
-    entity.prototype.NAT_SRC = '@NATURAL';
+    entity.prototype.NAT_SRC = '@SRC_NATURAL';
     
     entity.prototype._init_nat_skill = function() {
         var proto = this.__proto__
         var inifuncs = [];
-        while(proto.init_nat_skill) {
-            inifuncs.unshift(proto.init_nat_skill);
+        while(proto.constructor === entity || proto instanceof entity) {
+            if(proto.hasOwnProperty('init_nat_skill')) {
+                inifuncs.unshift(proto.init_nat_skill);
+            }
             proto = proto.__proto__;
         }
         var sks = [];
@@ -56,7 +62,7 @@ define(function(require) {
         } else {
             src = _cover(src);
         }
-        this.skill_pool.remove([sk_id, _cover(src)]);
+        this.skill_pool.remove([sk_id, src]);
     };
     
     entity.prototype.override_skill = function(nsk, nsrc, osk_id, osrc = null) {
@@ -73,7 +79,7 @@ define(function(require) {
         } else {
             src = _cover(src);
         }
-        return this.skill_pool.has([sk_id, _cover(src)], false);
+        return this.skill_pool.has([sk_id, src], false);
     };
     
     entity.prototype.foreach_skill = function(sk_id, src, func) {
@@ -87,7 +93,7 @@ define(function(require) {
         }
         this.skill_pool.foreach([sk_id, src], function(v, p) {
             var [skid, srcid] = p;
-            if(func) func(skid, srcid, v);
+            if(func && v !== undefined) func(skid, srcid, v);
         });
     };
     

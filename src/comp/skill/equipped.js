@@ -30,13 +30,28 @@ define(function(require) {
         }
     });
     
+    defcls.prototype._copy_skill_to = function(owner, dest, typ) {
+        var eqsrc = owner.EQSRC(typ);
+        owner.foreach_skill(null, eqsrc, function(skid, srcid, sk) {
+            dest.gain_skill(sk, owner);
+        });
+    };
+    
+    defcls.prototype._del_skill_from = function(owner, dest) {
+        dest.foreach_skill(null, owner.ID, function(skid, srcid, sk) {
+            dest.lose_skill(skid, owner);
+        });
+    };
+    
     defcls.prototype.equip = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
+        this._copy_skill_to(owner, sbj, act.info.type);
         log_equip(true, owner, sbj);
     };
     
     defcls.prototype.unequip = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
+        this._del_skill_from(owner, sbj);
         log_equip(false, owner, sbj);
     };
     

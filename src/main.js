@@ -46,6 +46,29 @@ define(function (require) {$(document).ready(function() {
         var acls = require('action/dualact')('attack');
         var a1 = new acls(m1, m2);
         a1.emit();
+    });
+    
+    (function() {
+        var player = new (require('entity/player'))('p1');
+        require('util/player').regist(player);
+        var mcls = require('entity/character');
+        var m1 = new mcls();
+        var m2 = new mcls();
+        var ecls = require('entity/sword');
+        var ecls = require('entity/weapon');
+        var e1 = new ecls();
+        var acls = require('action/dualact')('equip');
+        var a1 = new acls(m1, e1, {type:'mainhand'});
+        a1.emit();
+        acls = require('action/dualact')('attack');
+        var a2 = new acls(m1, m2);
+        a2.emit();
+        acls = require('action/dualact')('unequip');
+        var a3 = new acls(m1, e1);
+        a3.emit();
+        acls = require('action/dualact')('attack');
+        var a4 = new acls(m1, m2);
+        a4.emit();
     })();
     
 });});
