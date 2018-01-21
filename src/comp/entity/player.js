@@ -18,8 +18,7 @@ define(function(require) {
     };
     skill_log.prototype.MUXID = '$UNI_SKL_PLAYER_LOG';
     skill_log.prototype.emit = function(act, objs, owner, ctx) {
-        var [sbj, obj] = objs;
-        console.log('LOG(', owner.pid, ') form', sbj, ':', act.info);
+        console.log('LOG(', act.info.level, 'at', owner.pid, '):', act.info.content);
     };
     
     __extends(entity_player, entity);

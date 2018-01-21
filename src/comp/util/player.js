@@ -36,7 +36,6 @@ define(function(require) {
         
         info: function() {
             var args = _argv(arguments);
-            //args.splice(1, 0, 'info');
             args.unshift('info');
             log.apply(null, args);
         },
