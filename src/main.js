@@ -59,6 +59,7 @@ define(function (require) {$(document).ready(function() {
         var acls = require('action/stdact')['equip'];
         var a1 = new acls(m1, e1, {type:'mainhand'});
         a1.emit();
+        a1.emit();
         acls = require('action/stdact')['attack'];
         var a2 = new acls(m1, m2);
         a2.emit();

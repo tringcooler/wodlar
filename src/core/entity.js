@@ -97,7 +97,7 @@ define(function(require) {
         });
     };
     
-    entity.prototype.get_skill = function(sk_id = null, src = null) {
+    entity.prototype.get_skills = function(sk_id = null, src = null) {
         var r = {};
         this.foreach_skill(null, src, function(skid, srcid, sk) {
             if(!(srcid in r)) {
@@ -106,6 +106,10 @@ define(function(require) {
             r[srcid][skid] = sk;
         });
         return r;
+    };
+    
+    entity.prototype.get_skill = function(sk_id, src_id) {
+        return this.skill_pool.get([sk_id, src_id]);
     };
     
     return entity;
