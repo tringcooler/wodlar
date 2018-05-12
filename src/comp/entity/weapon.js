@@ -8,8 +8,6 @@ define(function(require) {
     
     defcls.prototype.SETID('#ENT_WEAPON');
     
-    defcls.prototype.EQTYP = '$TYP_EQ_WEAPON';
-    
     return defcls;
     
 });

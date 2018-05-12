@@ -60,8 +60,12 @@ define(function (require) {$(document).ready(function() {
         var acls = require('action/stdact')['equip'];
         var a1 = new acls(m1, e1, {type:'mainhand'});
         var a5 = new acls(m1, e2, {type:'offhand'});
+        var a7 = new acls(m1, e1, {type:'offhand'});
+        var a8 = new acls(m1, e2, {type:'mainhand'});
         a1.emit();
         a1.emit();
+        a7.emit();
+        a8.emit();
         acls = require('action/stdact')['attack'];
         var a2 = new acls(m1, m2);
         a2.emit();
@@ -78,6 +82,10 @@ define(function (require) {$(document).ready(function() {
         var a4 = new acls(m1, m2);
         a4.emit();
         a6.emit();
+        a4.emit();
+        a7.emit();
+        a4.emit();
+        a8.emit();
         a4.emit();
     })();
     

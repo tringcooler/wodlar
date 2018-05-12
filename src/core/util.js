@@ -160,8 +160,55 @@ define(function(require) {
         _clear(this.pool, keys);
     };
     
+    var _init_stdtbl = function(func, lst, prevkey = '', prevelm = null, stdtbl = null) {
+        if(!stdtbl) {
+            stdtbl = {};
+        }
+        for(var i = 0; i < lst.length; i++) {
+            var itm = lst[i];
+            var subs = null;
+            if(itm instanceof Array) {
+                subs = itm[1];
+                itm = itm[0];
+            }
+            if(typeof(itm) == 'string') {
+                var [key, elminfo] = itm.split(':');
+                if(!elminfo) {
+                    elminfo = null;
+                }
+                var fkey = key;
+                if(prevkey) {
+                    fkey = prevkey + '/' + key;
+                }
+                var elm = func(key, elminfo, prevelm);
+                stdtbl[fkey] = elm;
+                if(subs) {
+                    _init_stdtbl(func, subs, fkey, elm, stdtbl);
+                }
+            }
+        }
+        return stdtbl;
+    };
+    
+    var std_table = function(lst, func, reduce = 0) {
+        var stdtbl = _init_stdtbl(func, lst);
+        if(reduce) {
+            var stdtbl_keys = Object.keys(stdtbl);
+            for(var i = 0; i < stdtbl_keys.length; i++) {
+                var t_keys = stdtbl_keys[i].split('/');
+                if(t_keys.length > reduce) {
+                    var n_key = t_keys.slice(0, reduce - 1).concat(t_keys[t_keys.length - 1]).join('/');
+                    if(stdtbl[n_key]) throw 'stdtbl collision';
+                    stdtbl[n_key] = stdtbl[stdtbl_keys[i]];
+                }
+            }
+        }
+        return stdtbl;
+    };
+    
     return {
-       'multi_pool': multi_pool, 
+       'multi_pool': multi_pool,
+       'std_table': std_table,
     };
     
 });

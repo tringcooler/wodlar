@@ -32,7 +32,7 @@ define(function(require) {
         }
     };
     
-    entity.prototype.NAT_SRC = '#SRC_NATURAL';
+    entity.prototype.NAT_SRC = require('util/tags')['natural'];
     
     entity.prototype._init_nat_skill = function() {
         var proto = this.__proto__
