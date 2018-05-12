@@ -24,9 +24,12 @@ define(function(require) {
     };
     
     defcls.prototype._del_skill_from = function(owner, srceq) {
-        owner.foreach_skill(null, srceq.ID, function(skid, srcid, sk) {
+        var deleted = false;
+        owner.foreach_skill(null, srceq, function(skid, srcid, sk) {
             owner.lose_skill(skid, srceq);
+            deleted = true;
         });
+        return deleted
     };
     
     var log_unequip = require('util/player').logger(function(owner, src, self) {
@@ -35,8 +38,8 @@ define(function(require) {
     
     defcls.prototype.unequip = function(act, objs, owner, ctx) {
         var [sbj, obj] = objs;
-        this._del_skill_from(owner, obj);
-        owner.lose_skill(this.ID, obj);
+        if(!owner.check_src(this, obj)) return;
+        this._del_skill_from(owner, obj)
         log_unequip(owner, obj, this);
     };
     

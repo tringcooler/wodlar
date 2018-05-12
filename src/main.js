@@ -56,18 +56,28 @@ define(function (require) {$(document).ready(function() {
         var m2 = new mcls();
         var ecls = require('entity/sword');
         var e1 = new ecls();
+        var e2 = new ecls();
         var acls = require('action/stdact')['equip'];
         var a1 = new acls(m1, e1, {type:'mainhand'});
+        var a5 = new acls(m1, e2, {type:'offhand'});
         a1.emit();
         a1.emit();
         acls = require('action/stdact')['attack'];
         var a2 = new acls(m1, m2);
         a2.emit();
+        a5.emit();
+        a5.emit();
+        a2.emit();
         acls = require('action/stdact')['unequip'];
         var a3 = new acls(m1, e1);
+        var a6 = new acls(m1, e2);
+        a6.emit();
+        a5.emit();
         a3.emit();
         acls = require('action/stdact')['attack'];
         var a4 = new acls(m1, m2);
+        a4.emit();
+        a6.emit();
         a4.emit();
     })();
     

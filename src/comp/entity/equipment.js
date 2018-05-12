@@ -11,7 +11,7 @@ define(function(require) {
     defcls.prototype.EQTYP = '$TYP_EQ_EQUIPMENT';
     
     defcls.prototype.EQSRC = function(eqtyp) {
-        return '@SRC_EQ_' + eqtyp.toUpperCase();
+        return '#SRC_EQ_' + eqtyp.toUpperCase();
     };
     
     defcls.prototype.init_nat_skill = function() {

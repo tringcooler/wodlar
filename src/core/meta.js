@@ -43,6 +43,8 @@ define(function(require) {
     function meta() {
         var proto = _get_proto(this);
         proto._FIRST_INIT();
+        this.inst_idx = proto.INST_CNT;
+        proto.INST_CNT ++;
     }
     
     meta.prototype.ID = '#META';
@@ -80,10 +82,15 @@ define(function(require) {
         var proto = _get_proto(this);
         proto.ID = id;
         ID_TREE.add(proto.ID_CHAIN());
+        proto.INST_CNT = 0;
+    };
+    
+    meta.prototype.inst_id = function() {
+        return '@' + this.ID + ':' + this.inst_idx;
     };
     
     meta.prototype.repr = function() {
-        return '<' + this.ID + '>';
+        return '<' + this.inst_id() + '>';
     };
     
     return meta;

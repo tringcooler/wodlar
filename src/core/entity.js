@@ -12,19 +12,27 @@ define(function(require) {
     
     entity.prototype.SETID('#ENTITY');
     
-    var _cover = function(key) {
-        var cls = key;
-        if(!cls.prototype) {
-            cls = cls.constructor;
-        }
-        if(cls === META || cls.prototype instanceof META) {
-            return cls.prototype.ID_COVER();
+    var _cover_or_inst = function(key) {
+        if(!key.prototype && key instanceof META) {
+            return key.inst_id();
+        } else if(key === META || key.prototype instanceof META) {
+            return key.prototype.ID_COVER();
         } else {
             return key;
         }
     };
     
-    entity.prototype.NAT_SRC = '@SRC_NATURAL';
+    var _id_or_inst = function(key) {
+        if(!key.prototype && key instanceof META) {
+            return key.inst_id();
+        } else if(key === META || key.prototype instanceof META) {
+            return key.prototype.ID;
+        } else {
+            return key;
+        }
+    };
+    
+    entity.prototype.NAT_SRC = '#SRC_NATURAL';
     
     entity.prototype._init_nat_skill = function() {
         var proto = this.__proto__
@@ -50,7 +58,7 @@ define(function(require) {
     };
     
     entity.prototype.gain_skill = function(sk, src) {
-        this.skill_pool.set([sk.ID, _cover(src)], sk);
+        this.skill_pool.set([sk.ID, _cover_or_inst(src)], sk);
     };
     
     entity.prototype.lose_skill = function(sk_id, src) {
@@ -60,7 +68,7 @@ define(function(require) {
         if(!src) {
             src = this.skill_pool.SYM_WC;
         } else {
-            src = _cover(src);
+            src = _cover_or_inst(src);
         }
         this.skill_pool.remove([sk_id, src]);
     };
@@ -77,9 +85,16 @@ define(function(require) {
         if(!src) {
             src = this.skill_pool.SYM_WC;
         } else {
-            src = _cover(src);
+            src = _cover_or_inst(src);
         }
         return this.skill_pool.has([sk_id, src], false);
+    };
+    
+    entity.prototype.check_src = function(sk, src) {
+        if(sk.prototype || !(sk instanceof META)) {
+            return false;
+        }
+        return this.skill_pool.get([sk.ID, _id_or_inst(src)]) === sk;
     };
     
     entity.prototype.foreach_skill = function(sk_id, src, func) {
@@ -89,7 +104,7 @@ define(function(require) {
         if(!src) {
             src = this.skill_pool.SYM_WC;
         } else {
-            src = _cover(src);
+            src = _cover_or_inst(src);
         }
         this.skill_pool.foreach([sk_id, src], function(v, p) {
             var [skid, srcid] = p;
