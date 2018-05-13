@@ -1,5 +1,7 @@
 ({
-    baseUrl: '.',
+    appDir: "../",
+    dir: "../build",
+    baseUrl: "src",
     paths: {
         jquery: '../lib/jquery-1.12.4.min',
         core: 'core',
@@ -9,7 +11,9 @@
         entity: 'comp/entity',
         util: 'comp/util',
     },
-    name: "main",
-    include: [/*"jquery",*/ "core/base"],
-    out: "../build/wodlar_build.js"
+    modules: [
+        {
+            name: "main",
+        }
+    ]
 })
