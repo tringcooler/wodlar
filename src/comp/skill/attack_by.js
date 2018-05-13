@@ -1,6 +1,6 @@
 define(function(require) {
     
-    var act_std = require('action/stdact')
+    var act_std = require('action/stdact');
     var act_atk = act_std['attack'];
     var ent_atkbl = require('entity/attackable');
     

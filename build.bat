@@ -1,1 +1,1 @@
-r.js.cmd -o src\build.js
+r.js.cmd -o src\build.js optimize=none

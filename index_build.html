@@ -4,10 +4,10 @@
 <script type="text/javascript" src="lib/require.js"></script>
 <script>
     requirejs.config({
-        baseUrl: 'build',
+        baseUrl: '.',
         paths: {
-            jquery: '../lib/jquery-1.12.4.min',
-            main: 'wodlar_build',
+            jquery: 'lib/jquery-1.12.4.min',
+            main: 'build/wodlar_build',
         },
     });
     requirejs(['jquery']);
