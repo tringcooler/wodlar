@@ -24,9 +24,10 @@ define(function(require) {
     };
     
     defcls.prototype._del_skill_from = function(owner, srceq) {
-        owner.foreach_skill(null, srceq, function(skid, srcid, sk) {
-            owner.lose_skill(skid, srceq);
-        });
+        /*owner.foreach_skill(null, srceq, function(skid, srcid, sk) {
+            owner.lose_this_skill(sk);
+        });*/
+        owner.lose_skills(null, srceq);
     };
     
     var log_unequip = require('util/player').logger(function(owner, src, self) {

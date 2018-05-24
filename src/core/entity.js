@@ -13,12 +13,20 @@ define(function(require) {
     entity.prototype.SETID('#ENTITY');
     
     var _cover_or_inst = function(key) {
-        if(!key.prototype && key instanceof META) {
-            return key.inst_id();
-        } else if(key === META || key.prototype instanceof META) {
-            return key.prototype.ID_COVER();
+        if(key instanceof Array) {
+            var rk = [];
+            for(var i = 0; i < key.length; i++) {
+                rk = rk.concat(_cover_or_inst(key[i]));
+            }
+            return rk;
         } else {
-            return key;
+            if(!key.prototype && key instanceof META) {
+                return key.inst_id();
+            } else if(key === META || key.prototype instanceof META) {
+                return key.prototype.ID_COVER();
+            } else {
+                return key;
+            }
         }
     };
     
@@ -73,6 +81,41 @@ define(function(require) {
         this.skill_pool.remove([sk_id, src]);
     };
     
+    entity.prototype.lose_skills = function(sk_id, src) {
+        var skiset = {};
+        this.foreach_skill(sk_id, src, function(skid, srcid, sk) {
+            var ski_id = sk.inst_id();
+            if(!(ski_id in skiset)) {
+                skiset[ski_id] = true;
+            }
+        });
+        var lslst = {};
+        this.foreach_skill(null, null, function(skid, srcid, sk) {
+            var ski_id = sk.inst_id();
+            if(ski_id in skiset) {
+                if(!(skid in lslst)) {
+                    lslst[skid] = [];
+                }
+                lslst[skid].push(srcid);
+            }
+        });
+        for(var k in lslst) {
+            //console.log('lose_sk', k, lslst[k]);
+            this.skill_pool.remove([k, lslst[k]]);
+        }
+    };
+    
+    entity.prototype.lose_this_skill = function(sk) {
+        var srclst = [];
+        this.foreach_skill(sk.ID, null, function(skid, srcid, csk) {
+            if(csk === sk) {
+                srclst.push(srcid)
+            }
+        });
+        //console.log('lose', srclst);
+        this.skill_pool.remove([sk.ID, srclst]);
+    };
+    
     entity.prototype.override_skill = function(nsk, nsrc, osk_id, osrc = null) {
         this.lose_skill(osk_id, osrc);
         this.gain_skill(nsk, nsrc);
@@ -114,7 +157,7 @@ define(function(require) {
     
     entity.prototype.get_skills = function(sk_id = null, src = null) {
         var r = {};
-        this.foreach_skill(null, src, function(skid, srcid, sk) {
+        this.foreach_skill(sk_id, src, function(skid, srcid, sk) {
             if(!(srcid in r)) {
                 r[srcid] = {};
             }

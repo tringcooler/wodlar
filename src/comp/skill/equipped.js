@@ -42,7 +42,10 @@ define(function(require) {
             return;
         }
         this._copy_skill_to(owner, sbj, eqsrc);
-        sbj.gain_skill(new skill_equipping(eqsrc), owner);
+        //var nsk = new skill_equipping(eqsrc);
+        //sbj.gain_skill(nsk, [owner, require('util/tags')['equip_slot/weapon']]);
+        //sbj.gain_skill(nsk, owner);
+        sbj.gain_skill(new skill_equipping(eqsrc), [owner, eqsrc]);
         owner.eqdst = [sbj, eqsrc];
         log_equip(owner, sbj, eqsrc);
     };
