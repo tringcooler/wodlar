@@ -100,7 +100,6 @@ define(function(require) {
             }
         });
         for(var k in lslst) {
-            //console.log('lose_sk', k, lslst[k]);
             this.skill_pool.remove([k, lslst[k]]);
         }
     };
@@ -112,7 +111,6 @@ define(function(require) {
                 srclst.push(srcid)
             }
         });
-        //console.log('lose', srclst);
         this.skill_pool.remove([sk.ID, srclst]);
     };
     
