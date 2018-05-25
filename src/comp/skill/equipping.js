@@ -24,7 +24,9 @@ define(function(require) {
     };
     
     defcls.prototype._del_skill_from = function(owner, srceq) {
+        console.log('before:', owner.get_skills());
         owner.lose_skills(null, srceq);
+        console.log('after:', owner.get_skills());
     };
     
     var log_unequip = require('util/player').logger(function(owner, src, self) {

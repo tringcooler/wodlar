@@ -89,7 +89,7 @@ define(function(require) {
                 skiset[ski_id] = true;
             }
         });
-        var lslst = {};
+        /*var lslst = {};
         this.foreach_skill(null, null, function(skid, srcid, sk) {
             var ski_id = sk.inst_id();
             if(ski_id in skiset) {
@@ -101,7 +101,14 @@ define(function(require) {
         });
         for(var k in lslst) {
             this.skill_pool.remove([k, lslst[k]]);
-        }
+        }*/
+        this.skill_pool.remove([this.skill_pool.SYM_WC, this.skill_pool.SYM_WC], function(v, p) {
+            var [skid, srcid] = p;
+            var ski_id = v.inst_id();
+            if(ski_id in skiset) {
+                return true;
+            }
+        });
     };
     
     entity.prototype.lose_this_skill = function(sk) {

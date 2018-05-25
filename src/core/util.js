@@ -130,10 +130,10 @@ define(function(require) {
         }
         return pool[keys[keys.length - 1]];
     };
-    multi_pool.prototype.remove = function(keys) {
+    multi_pool.prototype.remove = function(keys, func = null) {
         if(!keys.length) return;
         var self = this;
-        var _clear = function(pool, keys) {
+        var _clear = function(pool, keys, path) {
             var head_ks = keys[0];
             var tail_k = keys.slice(1);
             if(head_ks == self.SYM_WC) {
@@ -143,21 +143,24 @@ define(function(require) {
             }
             for(var i = 0; i < head_ks.length; i++) {
                 var head_k = head_ks[i];
+                var npath = path.concat([head_k]);
                 if(!(head_k in pool)) continue;
                 if(tail_k.length < 1) {
-                    delete pool[head_k];
+                    if((!func) || func(pool[head_k], npath)) {
+                        delete pool[head_k];
+                    }
                     continue;
                 }
                 var npool = pool[head_k];
                 if(typeof(npool) != 'object') continue;
-                _clear(npool, tail_k);
+                _clear(npool, tail_k, npath);
                 if(Object.keys(npool).length < 1) {
                     delete pool[head_k];
                     continue;
                 }
             }
         }
-        _clear(this.pool, keys);
+        _clear(this.pool, keys, []);
     };
     
     var _init_stdtbl = function(func, lst, prevkey = '', prevelm = null, stdtbl = null) {
