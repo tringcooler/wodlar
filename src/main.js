@@ -53,6 +53,29 @@ define(function (require) {$(document).ready(function() {
         require('util/player').regist(player);
         var mcls = require('entity/character');
         var m1 = new mcls();
+        m1.gain_skill(new ((function() {
+            var _super = require('core/skill');
+            __extends(tsk, _super);
+            function tsk() {
+                _super.call(this);
+            }
+            tsk.prototype.SETID('#SKL_TMP_BYP_ATK');
+            tsk.prototype.FIRST_INIT = function(cls, proto) {
+                console.log('skill_tmp_bypass_atk init', proto.ID);
+                proto.REGIST(
+                    require('action/stdact')['attack'],
+                    [mcls, mcls],
+                    0, this.DPRIO(2), this.emit
+                );
+            };
+            tsk.prototype.MUXID = '$UNI_SKL_TMP_BYP_ATK';
+            tsk.prototype.emit = function(act, objs, owner, ctx) {
+                console.log('bypass', act.repr());
+                act.bypass(require('skill/attack_by')('slash'));
+                //act.bypass(require('skill/attack_by')('stab'));
+            };
+            return tsk;
+        })())(), '$SRC_TMP');
         var m2 = new mcls();
         var ecls = require('entity/sword');
         var e1 = new ecls();
