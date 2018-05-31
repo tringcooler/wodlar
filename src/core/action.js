@@ -1,8 +1,9 @@
 define(function(require) {
     
     var REGTAB = require('core/regtab');
+    var META = require('core/meta');
     
-    var _super = require('core/meta');
+    var _super = META;
     __extends(action, _super);
     function action(objs) {
         _super.call(this);
@@ -18,18 +19,20 @@ define(function(require) {
             var obj = self.objs[i];
             node_mp.foreach([i, node_mp.SYM_WC], function(cb, path) {
                 var sk_id = path[1];
-                obj.foreach_skill(sk_id, null, function(skid, srcid, sk) {
-                    if(!self._is_broken()) {
-                        if(cb) cb.call(sk, self, self.objs, obj, ctx);
-                    }
-                });
+                if(!self._is_bypass(sk_id)) {
+                    obj.foreach_skill(sk_id, null, function(skid, srcid, sk) {
+                        if(!self._is_broken()) {
+                            if(cb) cb.call(sk, self, self.objs, obj, ctx);
+                        }
+                    });
+                }
             });
             if(self._is_broken()) break;
         }
     };
     
     action.prototype.emit = function(ctx = null) {
-        this._unbreak();
+        this._init_emit_ctx();
         var emit_ctx = {};
         if(ctx) emit_ctx = ctx;
         var node = REGTAB.check([this.objs.length, this].concat(this.objs));
@@ -41,16 +44,32 @@ define(function(require) {
         }
     };
     
+    action.prototype._init_emit_ctx = function() {
+        this._breaking = false;
+        this._bypass_set = {};
+    };
+    
     action.prototype._is_broken = function() {
         return this._breaking;
     };
     
-    action.prototype._unbreak = function() {
-        this._breaking = false;
-    };
-    
     action.prototype.break = function() {
         this._breaking = true;
+    };
+    
+    action.prototype._is_bypass = function(sk_id) {
+        return this._bypass_set[sk_id];
+    };
+    
+    action.prototype.bypass = function(sk) {
+        var _cover = require('core/util').meta_tools(META).cover;
+        var keys = _cover(sk);
+        if(!(keys instanceof Array)) {
+            keys = [keys];
+        }
+        for(var i = 0; i < keys.length; i++) {
+            this._bypass_set[keys[i]] = true;
+        }
     };
     
     return action;
