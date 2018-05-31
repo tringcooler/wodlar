@@ -12,33 +12,8 @@ define(function(require) {
     
     entity.prototype.SETID('#ENTITY');
     
-    var _cover_or_inst = function(key) {
-        if(key instanceof Array) {
-            var rk = [];
-            for(var i = 0; i < key.length; i++) {
-                rk = rk.concat(_cover_or_inst(key[i]));
-            }
-            return rk;
-        } else {
-            if(!key.prototype && key instanceof META) {
-                return key.inst_id();
-            } else if(key === META || key.prototype instanceof META) {
-                return key.prototype.ID_COVER();
-            } else {
-                return key;
-            }
-        }
-    };
-    
-    var _id_or_inst = function(key) {
-        if(!key.prototype && key instanceof META) {
-            return key.inst_id();
-        } else if(key === META || key.prototype instanceof META) {
-            return key.prototype.ID;
-        } else {
-            return key;
-        }
-    };
+    var _cover_or_inst = require('core/util').meta_tools(META).cover_or_inst;
+    var _id_or_inst = require('core/util').meta_tools(META).id_or_inst;
     
     entity.prototype.NAT_SRC = require('util/tags')['natural'];
     

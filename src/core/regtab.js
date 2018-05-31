@@ -5,24 +5,8 @@ define(function(require) {
     }
     
     var META = require('core/meta');
-    var _cover = function(key) {
-        var cls = key;
-        if(!cls.prototype) {
-            cls = cls.constructor;
-        }
-        if(cls === META || cls.prototype instanceof META) {
-            return cls.prototype.ID_COVER();
-        } else {
-            return key;
-        }
-    };
-    var _id = function(obj) {
-        if(obj instanceof META) {
-            return obj.ID;
-        } else {
-            return obj;
-        }
-    };
+    var _cover = require('core/util').meta_tools(META).cover;
+    var _id = require('core/util').meta_tools(META).id;
     
     regtab.prototype.regist = function(clss, val) {
         var keys = []

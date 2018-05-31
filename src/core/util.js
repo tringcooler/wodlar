@@ -209,9 +209,75 @@ define(function(require) {
         return stdtbl;
     };
     
+    var meta_tools = function(META) {
+        
+        var _cover = function(key) {
+            var cls = key;
+            if(!cls.prototype) {
+                cls = cls.constructor;
+            }
+            if(cls === META || cls.prototype instanceof META) {
+                return cls.prototype.ID_COVER();
+            } else {
+                return key;
+            }
+        };
+        
+        var _id = function(obj) {
+            if(obj instanceof META) {
+                return obj.ID;
+            } else {
+                return obj;
+            }
+        };
+        
+        var _cover_or_inst = function(key) {
+            if(!key.prototype && key instanceof META) {
+                return key.inst_id();
+            } else if(key === META || key.prototype instanceof META) {
+                return key.prototype.ID_COVER();
+            } else {
+                return key;
+            }
+        };
+        
+        var _id_or_inst = function(key) {
+            if(!key.prototype && key instanceof META) {
+                return key.inst_id();
+            } else if(key === META || key.prototype instanceof META) {
+                return key.prototype.ID;
+            } else {
+                return key;
+            }
+        };
+        
+        var _wrap_for_array = function(func) {
+            var _wrapper = function(key) {
+                if(key instanceof Array) {
+                    var rk = [];
+                    for(var i = 0; i < key.length; i++) {
+                        rk = rk.concat(_wrapper(key[i]));
+                    }
+                    return rk;
+                } else {
+                    return func(key)
+                }
+            };
+            return _wrapper;
+        };
+        
+        return {
+            'cover': _wrap_for_array(_cover),
+            'id': _wrap_for_array(_id),
+            'cover_or_inst': _wrap_for_array(_cover_or_inst),
+            'id_or_inst': _wrap_for_array(_id_or_inst),
+        };
+    };
+    
     return {
        'multi_pool': multi_pool,
        'std_table': std_table,
+       'meta_tools': meta_tools,
     };
     
 });
