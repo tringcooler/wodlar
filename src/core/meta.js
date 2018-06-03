@@ -49,8 +49,12 @@ define(function(require) {
     
     meta.prototype.ID = '#META';
     
+    meta.prototype.IS_FIRST_INITED = function() {
+        return this.ID in INIT_TAB;
+    };
+    
     meta.prototype._FIRST_INIT = function() {
-        if(!(this.ID in INIT_TAB)) {
+        if(!this.IS_FIRST_INITED()) {
             if('ID' in this.__proto__) this.__proto__._FIRST_INIT();
             if(('FIRST_INIT' in this) && this.FIRST_INIT) {
                 this.FIRST_INIT(this.constructor, this.constructor.prototype);
